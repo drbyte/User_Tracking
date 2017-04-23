@@ -52,7 +52,7 @@ define('TEXT_DISPLAY_END', ' sessions of this 24 hour period. ');
 
 define('TEXT_PURGE_START', 'You can also ');
 define('TEXT_PURGE_RECORDS', 'purge all records');
-define('TEXT_PURGE_END', ' past the last 72 hours of data.');
+define('TEXT_PURGE_END', ' past the last ' . CONFIG_USER_TRACKING_PURGE_NUMBER . ' ' . (CONFIG_USER_TRACKING_PURGE_UNITS == 60 ? 'hour(s)': (CONFIG_USER_TRACKING_PURGE_UNITS == 1440 ? 'day(s)' : (CONFIG_USER_TRACKING_PURGE_UNITS == 10080 ? 'week(s)' : (CONFIG_USER_TRACKING_PURGE_UNITS == 43200 ? 'month(s)': 'unknown/error')))) . ' of data.'); //Modified for v1.4.3
 define('TEXT_USER_SHOPPING_CART', '&nbsp;User&nbsp;Shopping&nbsp;Cart&nbsp;');
 
 define('TEXT_ORIGINATING_URL', 'Originating&nbsp;URL:');

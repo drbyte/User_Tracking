@@ -1,28 +1,13 @@
-Read the UPDATE-V1.5.0.txt and New_Install_Readme.txt files in the Readme folder before continuing.
+Read the HOW_TO_UPDATE-V1.5.x.txt or New_Install_Readme.txt files in the Readme folder before continuing.  The text below is related to future modifications of this plug-in and does not offer any other signficant information.
 
 Forum is located at: http://www.zen-cart.com/showthread.php?35081-User-tracking-mod
 
-Notes to consider:
-
-File Modifications: 2 with Catalog-user-tracking AND Admin-user-tracking
-
-add the following to the end of /includes/templates/YOUR_TEMPLATE/common/tpl_footer.php
-
-Alternative 1: tracking all users and bots.
-<?php if (ZEN_CONFIG_USER_TRACKING == 'true' && function_exists('zen_update_user_tracking')) { zen_update_user_tracking(); } ?>
-
-Alternative 2: track only users with set sessions.
-<?php if (ZEN_CONFIG_USER_TRACKING == 'true' && $session_started && function_exists('zen_update_user_tracking')) { zen_update_user_tracking(); } ?>
-
-Alternative 3: RECOMMENDED, track all users except bots/spiders, requires Configuration->Sessions->Prevent Spider Sessions->true (I don't know if this works with Zen-Cart versions older than 1.2.6d).
-<?php if (ZEN_CONFIG_USER_TRACKING == 'true' && !$spider_flag && function_exists('zen_update_user_tracking')) { zen_update_user_tracking(); } ?>
-
+Notes being considered for modification of this plug-in as captured from the plug-in forum:
 
 Add if you want to track admin pages viewed add the following to the end of /admin/includes/footer.php
 
 <?php if (ADMIN_CONFIG_USER_TRACKING == 'true' && function_exists('zen_update_user_tracking')) { zen_update_user_tracking(); } ?> 
 
-Related to above: If you set Force Cookie Use->true, then at the first user entry sessions does not started!!! And In variant 2 and 3 user-tracking not started. In this case you lost one click and (NB!!!) refferal. But if this user are old (returning) user and have an old (previous) zen cookie the session started and your tracking system collect this info. So, the result beforehand is not known. 
 
 Timezone:
 For figuring out the time that suits your timezone just remove 28800 and check what is displayed then. Keep in mind 28800 seconds is 8 hours, figuring out the right time instead (in seconds) should be easy.
@@ -36,26 +21,26 @@ I don't have a general solution, all I know date('H:i:s', mktime(0, 0, 0)) gives
 There are a other timezone issues as well, I always would have liked an option to set the user timezone as well so that the Start and End times can be in the timezone of the person who runs the mod in the Admin interface. 
 
 Listing items:
-When i open User Tracking, by default it opens me the first user that whas recorded without a session_id.
+When i open User Tracking, by default it opens me the first user that was recorded without a session_id.
 In my case web crawlers as google, yahoo....
 This may be only particular to me as i have in config-> Sessions :
 Prevent Spider Sessions
 Prevent known spiders from starting a session = True
-And they have a lot off hits in one day > 5000
-it is a headake to scroll to the real users sessions throh so many hits
+And they have a lot of hits in one day > 5000
+it is a headache to scroll to the real users sessions through so many hits
 
-the solution is that in admin/user_tracking.php around the end there is the line that shows the clicks off a certain user, for me this line returns true by default in the case off spiders as they dont have session IDs.
+the solution is that in admin/user_tracking.php around the end there is the line that shows the clicks off a certain user, for me this line returns true by default in the case of spiders as they don't have session IDs.
 line 363 in my file
 
 Code:
 if ($_GET['viewsession'] == $ut['value']['session_id']){
   while (($pu = each($ut['value']['last_page_url']))&&($du = each($ut['value']['page_desc'])))
-  {and replaced it with (adedd code in red and bold)
+  {and replaced it with (added code in red and bold)
 
 Code:
 if ($_GET['viewsession'] == $ut['value']['session_id']  && $ut['value']['session_id'] != ''){
   while (($pu = each($ut['value']['last_page_url']))&&($du = each($ut['value']['page_desc'])))
-  {in this way even if the is a record without session_id, it does not open by default, only when you click on [view session]
+  {in this way even if the variable is a record without session_id, it does not open by default, only when you click on [view session]
 
 Best regards Zoli. 
 
