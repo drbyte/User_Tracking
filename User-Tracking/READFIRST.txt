@@ -46,7 +46,7 @@ Best regards Zoli.
 
 Delete records: At the top of the User Tracking page where I have 
 Delete all info from IP-Address 66.249.71.141, 67.195.37.98 purge all records 
-Clicking it doesn't remove the Yahoo records.
+Clicking it doesn't remove the Yahoo records.  Supposedly this is incorporated into program where an explode was used.  recent updater has not verified it's use/functionality.
 
 When only the Google bot was listed 
 Delete all info from IP-Address 66.249.71.141 purge all records 
@@ -62,4 +62,7 @@ http://razvantudorica.wordpress.com/2011/03/25/cannot-redeclare-geoip_country_co
 
 Need to ensure to capture/address malformed page requests.
 
+Images could potentially be reduced by gathering them from: http://www.famfamfam.com/lab/icons/flags/
 
+geo information available from: http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
+Supposedly need a new interpretter and method of interpretation.

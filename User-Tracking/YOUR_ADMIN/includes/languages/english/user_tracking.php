@@ -41,6 +41,8 @@ define('TEXT_NUMBER_OF_SPIDERS', ' Total number of spiders: %u.');
 define('TEXT_NUMBER_OF_USERS', ' Total number of users: %u.');
 define('TEXT_HIDE_SPIDERS', 'Hide Spiders');
 define('TEXT_SHOW_SPIDERS', 'Show Spiders');
+define('TEXT_OPTION3_SPIDER_HIDE',' *This option may not provide results because of an admin setting ');
+define('TEXT_SPIDER_HIDE_OTHERS', '');
 
 define('TEXT_HAS_BEEN_PURGED', 'All User Records Older Than 72 Hours Purged!');
 define('TEXT_SELECT_VIEW', 'SELECT VIEW');

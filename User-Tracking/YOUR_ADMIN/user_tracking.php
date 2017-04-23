@@ -138,7 +138,7 @@ $date_year[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i))
             ?>
             </td>
 <?php // Start User Tracking - Spider Mod 3 of 7 ?>
-		  <td class="Spiders" align="left"><?php echo zen_draw_radio_field('SpiderYes', 'HideSpiders', $displaySpider == false, NULL, ( ($displaySpider == true) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_HIDE_SPIDERS; echo zen_draw_radio_field('SpiderYes', 'ShowSpiders', $displaySpider == true, NULL, ( ($displaySpider == false) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_SHOW_SPIDERS; ?></td>
+		  <td class="Spiders" align="left"><?php echo zen_draw_radio_field('SpiderYes', 'HideSpiders', $displaySpider == false, NULL, ( ($displaySpider == true) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_HIDE_SPIDERS; echo zen_draw_radio_field('SpiderYes', 'ShowSpiders', $displaySpider == true, NULL, ( ($displaySpider == false) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_SHOW_SPIDERS; echo (CONFIG_USER_TRACKING_TRACK_TYPE_RECORD == '3'? TEXT_OPTION3_SPIDER_HIDE : TEXT_SPIDER_HIDE_OTHERS); ?></td>
 <?php // End User Tracking - Spider Mod 3 of 7 ?>
 <td class="main" align="left"><?php echo zen_image_submit('button_report.gif', 'Update Report'); ?></td>
 
@@ -261,7 +261,7 @@ if ($whos_online->fields['full_name'] != 'Guest')
 
 	//Begin of v1.4.3 12 of 15 
   $listed = 0;
-  if ($results)
+  if ($results && is_array($user_tracking) == true)
   while (($ut = each($user_tracking)) && !$user_tracking->EOF /*($listed++ < CONFIG_USER_TRACKING_SESSION_LIMIT)*/)
   {
 	$is_a_bot=zen_check_bot($ut['value']['session_id']);
@@ -298,10 +298,13 @@ if ($whos_online->fields['full_name'] != 'Guest')
 	//Begin of v1.4.3 14 of 15 
   $num_sessions = 0;
   $spiderCount = 0;
-  reset($user_tracking);
-	//End of v1.4.3 14 of 15 
-  if ($results)
-  while (($ut = each($user_tracking)) && ($listed++ < CONFIG_USER_TRACKING_SESSION_LIMIT))
+  	//End of v1.4.3 14 of 15 
+  
+  if ($results && is_array($user_tracking) == true) {
+	/* Begin v1.4.3b  (Moved statement to within test) */
+  	  reset($user_tracking);
+	/* End v1.4.3b */
+while (($ut = each($user_tracking)) && ($listed++ < CONFIG_USER_TRACKING_SESSION_LIMIT))
   {
 // Start User Tracking - Spider Mod 4 of 7
 	  $is_a_bot=zen_check_bot($ut['value']['session_id']);
@@ -465,7 +468,7 @@ echo'        </table>
 // Start User Tracking - Spider Mod 6 of 7
 	  }
 // End User Tracking - Spider Mod 6 of 7
- }
+ }}
 ?>
        <tr>
         <td class="smallText" colspan="7"><?php echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, $results); /*Start User Tracking - Spider Mod 7 of 7 */ echo sprintf(TEXT_NUMBER_OF_USERS, $num_sessions); echo sprintf(TEXT_NUMBER_OF_SPIDERS, $spiderCount); /*End User Tracking - Spider Mod 7 of 7 */ ?></td>

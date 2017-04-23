@@ -65,8 +65,28 @@ function zen_update_user_tracking()
             $cust_id = 0;
         }
     $customers_host_address = $_SESSION['customers_host_address']; // JTD:11/27/06 - added host address support
+
     $page_desc = substr($page_desc, 0, 63);
-    $wo_last_page_url = substr($wo_last_page_url, 0, 253);
+	/* Start - User tracking v1.4.3b modification*/
+    while (strpos(substr($page_desc, -1), '\\') !== false) {
+		$page_desc = substr($page_desc, 0, -1);    
+	}
+	/* End - User tracking v1.4.3b modification*/
+
+	$wo_last_page_url = substr($wo_last_page_url, 0, 253);
+	/* Start - User tracking v1.4.3b modification*/
+    while (strpos(right($wo_last_page_url, 1), '\\') !== false) {
+		$wo_last_page_url = substr($wo_last_page_url, 0, -1);    
+	}
+	/* End - User tracking v1.4.3b modification*/
+
+	/* Start - User tracking v1.4.3b modification*/
+	while (strpos(right($referer_url, 1), '\\') !== false) {
+		$referer_url = substr($referer_url, 0, -1);    
+	}
+	/* End - User tracking v1.4.3b modification*/
+		    
+
     $db->Execute("insert into " . TABLE_USER_TRACKING . " (customer_id, full_name, session_id, ip_address, time_entry, time_last_click, last_page_url, referer_url, page_desc, customers_host_address) values ('" . $cust_id . "', '" . $wo_full_name . "', '" . $wo_session_id . "', '" . $wo_ip_address . "', '" . $current_time . "', '" . $current_time . "', '" . $wo_last_page_url . "', '" . $referer_url . "', '" . $page_desc . "', '" . $customers_host_address . "')");
     }
   }
