@@ -15,7 +15,7 @@ CREATE TABLE user_tracking (
   `referer_url` varchar(254) NOT NULL default '',
   `page_desc` varchar(64) NOT NULL default '',
   `customers_host_address` varchar(64) NOT NULL default ''
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 DELETE FROM configuration where configuration_group_id = '999';
 INSERT INTO configuration_group (`configuration_group_id`, `configuration_group_title`, `configuration_group_description`, `sort_order`, `visible`) VALUES (999, 'User Tracking Config', 'User Tracking', 31, 1);

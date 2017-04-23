@@ -1,11 +1,16 @@
 Contribution:  User Tracking
-Version:  V.1.5
+Version:  V.1.5.2 (though file in fileset reflected 1.4.2)
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
 Updated by: mc12345678
+Code Updated by: corseter with no update to this instruction.
 License: under the GPL - See attached License for info.
 Support:  Only given via the forums, please. http://www.zen-cart.com/forum/showthread.php?t=35081
+========================================================
+Updated 02/23/2015 Version 1.5.2
+No content added to this, and in fact content was reverted back to version 1.4.2 
+which had been released 08 Jul 2013.
 
 ========================================================
 Updated 12/08/2013 Version 1.5

@@ -18,12 +18,11 @@
 // | license@zen-cart.com so we can mail you a copy immediately.          |
 // +----------------------------------------------------------------------+
 //  $Id: usertracking 2004-12-1 dave@open-operations.com http://open-operations.com
-//  UPDATED 2013-12-07 mc12345678 http://mc12345678.weebly.com
   require('includes/application_top.php');
   require(DIR_WS_CLASSES . 'currencies.php');
   $currencies = new currencies();
-  require(DIR_WS_INCLUDES . 'geoip.inc'); // <- Updated file usually available from: https://raw.github.com/maxmind/geoip-api-php/tree/master/src/geoip.inc
-  $gi = geoip_open(DIR_WS_INCLUDES . 'GeoIP.dat',GEOIP_STANDARD); // <- Updated file usually available from: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+  require(DIR_WS_INCLUDES . 'geoip.inc');
+  $gi = geoip_open(DIR_WS_INCLUDES . 'GeoIP.dat',GEOIP_STANDARD);
 
 // Start User Tracking - Spider Mod 1 of 7 Copied from admin\whos_online.php Zen Cart V1.5.0
 function zen_check_bot($checking) {
@@ -139,7 +138,7 @@ $date_year[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i))
             ?>
             </td>
 <?php // Start User Tracking - Spider Mod 3 of 7 ?>
-		  <td class="Spiders" align="left"><?php echo zen_draw_radio_field('SpiderYes', 'HideSpiders', $displaySpider == false, NULL, ( ($displaySpider == true) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_HIDE_SPIDERS; echo zen_draw_radio_field('SpiderYes', 'ShowSpiders', $displaySpider == true, NULL, ( ($displaySpider == false) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_SHOW_SPIDERS; echo (CONFIG_USER_TRACKING_TRACK_TYPE_RECORD == '3'? TEXT_OPTION3_SPIDER_HIDE : TEXT_SPIDER_HIDE_OTHERS); ?></td>
+		  <td class="Spiders" align="left"><?php echo zen_draw_radio_field('SpiderYes', 'HideSpiders', $displaySpider == false, NULL, ( ($displaySpider == true) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_HIDE_SPIDERS; echo zen_draw_radio_field('SpiderYes', 'ShowSpiders', $displaySpider == true, NULL, ( ($displaySpider == false) ? 'onClick="this.form.submit();"' : '' )); echo TEXT_SHOW_SPIDERS; ?></td>
 <?php // End User Tracking - Spider Mod 3 of 7 ?>
 <td class="main" align="left"><?php echo zen_image_submit('button_report.gif', 'Update Report'); ?></td>
 
@@ -152,14 +151,14 @@ $date_year[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i))
         <td class="smallText">
 
 <?php
-  if (isset($_GET['purge']) && $_GET['purge'] == CONFIG_USER_TRACKING_PURGE_NUMBER && (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_RECORDS == 'true' )) //v1.4.3 1 of 15 
+  if ($_GET['purge'] == '72')
   {
 // JTD:10/27/05
 //    $db->Execute("DELETE FROM " . TABLE_USER_TRACKING . " where time_last_click < '"  . (time() - ($purge * 3600))."'");
-    $db->Execute("DELETE FROM " . TABLE_USER_TRACKING . " WHERE time_last_click < '" . (time() - ($_GET['purge'] * 60 * CONFIG_USER_TRACKING_PURGE_UNITS))."'"); //v1.4.3 2 of 15 
+    $db->Execute("DELETE FROM " . TABLE_USER_TRACKING . " where time_last_click < '" . (time() - ($_GET['purge'] * 3600))."'");
     echo "<font color=red>" . TEXT_HAS_BEEN_PURGED . '</font><p>';
   }
-  if (isset($_GET['delip']) && $_GET['delip'] == '1' && (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_IP == 'true' )) //v1.4.3 3 of 15 
+  if ($_GET['delip'] == '1')
   {
  //   $db->Execute("DELETE FROM " . TABLE_USER_TRACKING . " WHERE ip_address = '" . CONFIG_USER_TRACKING_EXCLUDED . "'");
 //    echo CONFIG_USER_TRACKING_EXCLUDED . ' has been deleted. <p>';
@@ -171,7 +170,7 @@ $date_year[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i))
       echo '<p>';
     $delip='0';
   }
-  if (isset($_GET['delsession']) && $_GET['delsession'] && (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_SESSIONS == 'true' )) //v1.4.3 4 of 15 
+  if ($_GET['delsession'])
   {
     $db->Execute("DELETE FROM " . TABLE_USER_TRACKING . " WHERE session_id = '" . $_GET['delsession'] . "'");
     echo $_GET['delsession'] . ' has been deleted. <p>';
@@ -188,40 +187,35 @@ $date_year[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i))
 
   if (time() < $time_frame - 86400)
   {
+    echo '<a href="' . FILENAME_USER_TRACKING . '?time=' ;
     $newTime = time();
-    $newTime = ($time_frame - ((int)(($time_frame - $newTime) / 86400) + 1) * 86400 );
-    echo '<a href="' . zen_href_link(FILENAME_USER_TRACKING, 'time=' . $newTime, $request_type) . '">' . TEXT_BACK_TO . ' ' . TEXT_TODAY . ' </a> | ';
+    echo ($time_frame - ((int)(($time_frame - $newTime) / 86400) + 1) * 86400 ) . '">' . TEXT_BACK_TO . ' ' . TEXT_TODAY . ' </a> | ';
   }
 // End User Tracking - Ver 1.4.2 Mod 1 of 
 
-  echo '<a href="' . zen_href_link(FILENAME_USER_TRACKING, 'time=' . ($time_frame - 86400), $request_type) . '">' . TEXT_BACK_TO . ' ' . date("M d, Y", $time_frame - 86400) . '</a> ';
+  echo '<a href="' . FILENAME_USER_TRACKING . '?time=' ;
+  echo $time_frame - 86400 . '">' . TEXT_BACK_TO . ' ' . date("M d, Y", $time_frame - 86400) . '</a> ';
 
   if (time() > $time_frame + 86400)
   {
-    echo '| <a href="' . zen_href_link(FILENAME_USER_TRACKING,  'time=' . ($time_frame + 86400) , $request_type) . '">' . TEXT_FORWARD_TO . date("M d, Y", $time_frame + 86400) . '</a>';
+    echo '| <a href="' . FILENAME_USER_TRACKING . '?time=' ;
+    echo $time_frame + 86400 . '">' . TEXT_FORWARD_TO . date("M d, Y", $time_frame + 86400) . '</a>';
   }
 
 // Start User Tracking - Ver 1.4.2 Mod 2 of 
   if (time() > $time_frame + 172800)
   {
-//v1.4.3 8 of 15 
+    echo ' | <a href="' . FILENAME_USER_TRACKING . '?time=' ;
     $newTime = time();
-    $newTime = ($time_frame + ((int)(($newTime - $time_frame) / 86400)) * 86400 );
-    //echo $newTime . '">' . TEXT_FORWARD_TO . ' ' . TEXT_TODAY . ' </a>';
-    echo ' | <a href="' . zen_href_link(FILENAME_USER_TRACKING,  'time=' . $newTime, $request_type) . '">' . TEXT_FORWARD_TO . ' ' . TEXT_TODAY . ' </a>';
-   }
+    echo ($time_frame + ((int)(($newTime - $time_frame) / 86400)) * 86400 ) . '">' . TEXT_FORWARD_TO . ' ' . TEXT_TODAY . ' </a>';
+  }
 // End User Tracking - Ver 1.4.2 Mod 2 of 
-if (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_RECORDS == 'true'){  //v1.4.3 9 of 15 
+
   echo "<p>" . TEXT_DISPLAY_START . CONFIG_USER_TRACKING_SESSION_LIMIT . TEXT_DISPLAY_END;
-	//Begin of v1.4.3 10 of 15 
-  echo TEXT_PURGE_START . ' <a href="' . zen_href_link(FILENAME_USER_TRACKING, 'purge='. CONFIG_USER_TRACKING_PURGE_NUMBER, $request_type) . '">' . TEXT_PURGE_RECORDS . '</a> ' . TEXT_PURGE_END. '</font><p>';
-}
-if (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_IP == 'true'){
-  echo TEXT_DELETE_IP . CONFIG_USER_TRACKING_EXCLUDED . ' <a href="' . zen_href_link(FILENAME_USER_TRACKING, 'delip=1', $request_type) . '">'. TEXT_PURGE_RECORDS. '</a> </font>';
-}
-  echo "<p>";
-	//End of v1.4.3 10 of 15 
-  
+  echo TEXT_PURGE_START . ' <a href="' . FILENAME_USER_TRACKING . '?purge=72">'. TEXT_PURGE_RECORDS. '</a> ' . TEXT_PURGE_END. '</font><p>';
+
+  echo TEXT_DELETE_IP . CONFIG_USER_TRACKING_EXCLUDED . ' <a href="' . FILENAME_USER_TRACKING . '?delip=1">'. TEXT_PURGE_RECORDS. '</a> </font><p>';
+
   $whos_online =
       $db->Execute("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, page_desc," .
                    " session_id, referer_url, customers_host_address from " . TABLE_USER_TRACKING  .
@@ -229,12 +223,7 @@ if (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMI
                    " and time_entry < " . ($time_frame + 86400) .
                    " order by time_last_click desc");
 
-
   $results = 0;
-	//Begin of v1.4.3 11 of 15 
-  $spiderCount = 0;
-  $num_sessions = 0;
-	//End of v1.4.3 11 of 15 
 while (!$whos_online->EOF) {
      $user_tracking[$whos_online->fields['session_id']]['session_id']=$whos_online->fields['session_id'];
      $user_tracking[$whos_online->fields['session_id']]['ip_address']=$whos_online->fields['ip_address'];
@@ -256,31 +245,16 @@ if ($whos_online->fields['full_name'] != 'Guest')
          (!$user_tracking[$whos_online->fields['session_id']]['end_time']))
           $user_tracking[$whos_online->fields['session_id']]['end_time'] = $whos_online->fields['time_entry'];
      $results ++;
-
  $whos_online->MoveNext();
   }
 
-	//Begin of v1.4.3 12 of 15 
-  $listed = 0;
-  if ($results && is_array($user_tracking) == true)
-  while (($ut = each($user_tracking)) && !$user_tracking->EOF /*($listed++ < CONFIG_USER_TRACKING_SESSION_LIMIT)*/)
-  {
-	$is_a_bot=zen_check_bot($ut['value']['session_id']);
-	if ($is_a_bot) {
-		$spiderCount ++;
-	} else {
-		$num_sessions ++;
-	}
-	$listed++;
-  }
-	//End of v1.4.3 12 of 15 
 ?>
 
 
 
 
        <tr>
-        <td class="smallText" colspan="7"><?php echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, $results); /*Start User Tracking - Spider Mod 13 of 15  */ echo sprintf(TEXT_NUMBER_OF_USERS, $num_sessions); echo sprintf(TEXT_NUMBER_OF_SPIDERS, $spiderCount); /*End User Tracking - Spider Mod 13 of 15 */ ?></td>
+        <td class="smallText" colspan="7"><?php echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, $results); ?></td>
        </tr>
 
 
@@ -296,16 +270,8 @@ if ($whos_online->fields['full_name'] != 'Guest')
   // now let's display it
 
   $listed=0;
-	//Begin of v1.4.3 14 of 15 
-  $num_sessions = 0;
-  $spiderCount = 0;
-  	//End of v1.4.3 14 of 15 
-  
-  if ($results && is_array($user_tracking) == true) {
-	/* Begin v1.4.3b  (Moved statement to within test) */
-  	  reset($user_tracking);
-	/* End v1.4.3b */
-while (($ut = each($user_tracking)) && ($listed++ < CONFIG_USER_TRACKING_SESSION_LIMIT))
+  if ($results)
+  while (($ut = each($user_tracking)) && ($listed++ < CONFIG_USER_TRACKING_SESSION_LIMIT))
   {
 // Start User Tracking - Spider Mod 4 of 7
 	  $is_a_bot=zen_check_bot($ut['value']['session_id']);
@@ -337,15 +303,15 @@ echo '
    {
      $stripped_name = strip_tags($ut['value']['full_name']);
      $exploded_name = explode(" ", $stripped_name);
-     $customer_link = "<a href='" . zen_href_link(FILENAME_CUSTOMERS, "search=" . $exploded_name[1], $request_type) . "'>" . $ut['value']['full_name'] . "</a>";
+     $customer_link = "<a href=" . DIR_WS_ADMIN . "customers.php?search=" . $exploded_name[1] . ">" . $ut['value']['full_name'] . "</a>";
    }
    else
    {
      $customer_link = $ut['value']['full_name'];
    }
-   	//Begin of v1.4.3 15 of 15 ?>
-   <td colspan = "5" class="dataTableContent" valign="top"><a name="<?php echo $ut['value']['session_id'];?>"></a><?php echo $customer_link . ",&nbsp;" . $ut['value']['session_id'] . ", <a href=\"" . zen_href_link(FILENAME_USER_TRACKING, ($_GET['time'] ? "time=" . $_GET['time'] . "&" : ""). "delsession=" . $ut['value']['session_id'], $request_type)  . "\">" . (((CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true') || (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_SESSIONS == 'true' )) ? "<font color=red>[delete session]</font>," : "" ) . "</a>" . " <a href=\"". zen_href_link(FILENAME_USER_TRACKING, ($_GET['time'] ? "time=" . $_GET['time'] . "&" : "") . "viewsession=" . $ut['value']['session_id'] . "#" . $ut['value']['session_id'], $request_type) . "\"><font color=green>[view session]</font></a>";?></td>
-<?php 	//End of v1.4.3 15 of 15
+   ?>
+   <td colspan = "5" class="dataTableContent" valign="top"><a name="<?php echo $ut['value']['session_id'];?>"></a><?php echo $customer_link . ",&nbsp;" . $ut['value']['session_id'] . ", <a href=\"user_tracking.php?" . ($_GET['time'] ? "time=" . $_GET['time'] . "&" : "") . "delsession=" . $ut['value']['session_id'] . "\"><font color=red>[delete session]</font></a>" . ", <a href=\"user_tracking.php?" . ($_GET['time'] ? "time=" . $_GET['time'] . "&" : "") . "viewsession=" . $ut['value']['session_id'] . "#" . $ut['value']['session_id'] . "\"><font color=green>[view session]</font></a>";?></td>
+<?php
 
     // shopping cart decoding
     $session_data = $db->Execute("select value from " . TABLE_SESSIONS . " WHERE sesskey = '" . $ut['value']['session_id'] . "'");
@@ -469,7 +435,7 @@ echo'        </table>
 // Start User Tracking - Spider Mod 6 of 7
 	  }
 // End User Tracking - Spider Mod 6 of 7
- }}
+ }
 ?>
        <tr>
         <td class="smallText" colspan="7"><?php echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, $results); /*Start User Tracking - Spider Mod 7 of 7 */ echo sprintf(TEXT_NUMBER_OF_USERS, $num_sessions); echo sprintf(TEXT_NUMBER_OF_SPIDERS, $spiderCount); /*End User Tracking - Spider Mod 7 of 7 */ ?></td>
