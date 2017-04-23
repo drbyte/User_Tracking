@@ -1,5 +1,5 @@
 Contribution:  User Tracking
-Version:  V.1.4.4
+Version:  V.1.5
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
@@ -7,6 +7,26 @@ Updated by: mc12345678
 License: under the GPL - See attached License for info.
 Support:  Only given via the forums, please. http://www.zen-cart.com/forum/showthread.php?t=35081
 
+========================================================
+Updated 12/08/2013 Version 1.5
+1. Corrected a long standing issue with capturing data from the URL.  The URLs are still truncated; however, they are now sent through for cleansing using Zen Carts db class prior to being sent to the SQL.  This should reduce the occurrences of/prevent the SQL statement failure.
+2. Incorporated a new GeoIP.dat file (recent as of: Dec-05-2013.  Similar updates can be obtained from:  http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz.
+3. Incorporated a new geoip.inc file to accompany the GeoIP.dat file.  The geoip.inc file can be obtained from: https://raw.github.com/maxmind/geoip-api-php/master/src/geoip.inc.
+4. Incorporated zen_href_link to generate links.
+
+UPDATING INSTRUCTIONS:
+For SQL statements: If updating from version 1.4.2, then: Use the UPDATE_VER.sql after any other SQL statements (This will update the version number of User Tracking)
+otherwise same instructions as applicable from the 11/10/2013 update.
+
+Files Updated from Version 1.4.4:
+includes/functions/extra_functions/user_tracking.php
+YOUR_ADMIN/user_tracking.php
+YOUR_ADMIN/user_tracking_config.php
+YOUR_ADMIN/includes/GeoIP.dat
+YOUR_ADMIN/includes/geoip.inc
+YOUR_ADMIN/includes/functions/extra_functions/user_tracking.php
+
+Added UPDATE_VER.sql
 ========================================================
 Updated 11/26/2013 Version 1.4.4
 1. Corrected a PHP warning that appeared because of use of the incorrect programming language.
@@ -31,7 +51,7 @@ Updated 11/24/2013 Version 1.4.3b
 3. Updated the button display of spiders, such that if option 3 is chosen in system setup that a message appears.
 
 UPDATING INSTRUCTIONS:
-For SQL statemenst: same instructions as applicable from the 11/10/2013 update.
+For SQL statements: same instructions as applicable from the 11/10/2013 update.
 
 Files updated from 1.4.3 or 1.4.3a are:
 YOUR_ADMIN\user_tracking.php

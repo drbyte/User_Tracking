@@ -18,7 +18,8 @@
 // | license@zen-cart.com so we can mail you a copy immediately.          |
 // +----------------------------------------------------------------------+
 //  $Id: usertracking 2004-12-1 dave@open-operations.com http://open-operations.com
-$UserTrackgID = 999; /*Update for Version 1.4.3 1 of 11*/
+//  UPDATED 2013-12-07 mc12345678 http://mc12345678.weebly.com
+//$UserTrackgID = 999; /*Update for Version 1.4.3 1 of 11*/
   require('includes/application_top.php');
 
 //Begin update for Version 1.4.3 2 of 11

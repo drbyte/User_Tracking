@@ -18,11 +18,12 @@
 // | license@zen-cart.com so we can mail you a copy immediately.          |
 // +----------------------------------------------------------------------+
 //  $Id: usertracking 2004-12-1 dave@open-operations.com http://open-operations.com
+//  UPDATED 2013-12-07 mc12345678 http://mc12345678.weebly.com
   require('includes/application_top.php');
   require(DIR_WS_CLASSES . 'currencies.php');
   $currencies = new currencies();
-  require(DIR_WS_INCLUDES . 'geoip.inc');
-  $gi = geoip_open(DIR_WS_INCLUDES . 'GeoIP.dat',GEOIP_STANDARD);
+  require(DIR_WS_INCLUDES . 'geoip.inc'); // <- Updated file usually available from: https://raw.github.com/maxmind/geoip-api-php/tree/master/src/geoip.inc
+  $gi = geoip_open(DIR_WS_INCLUDES . 'GeoIP.dat',GEOIP_STANDARD); // <- Updated file usually available from: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
 
 // Start User Tracking - Spider Mod 1 of 7 Copied from admin\whos_online.php Zen Cart V1.5.0
 function zen_check_bot($checking) {
@@ -187,36 +188,36 @@ $date_year[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i))
 
   if (time() < $time_frame - 86400)
   {
-    echo '<a href="' . FILENAME_USER_TRACKING . '.php?time=' ; //v1.4.3 5 of 15 
     $newTime = time();
-    echo ($time_frame - ((int)(($time_frame - $newTime) / 86400) + 1) * 86400 ) . '">' . TEXT_BACK_TO . ' ' . TEXT_TODAY . ' </a> | ';
+    $newTime = ($time_frame - ((int)(($time_frame - $newTime) / 86400) + 1) * 86400 );
+    echo '<a href="' . zen_href_link(FILENAME_USER_TRACKING, 'time=' . $newTime, $request_type) . '">' . TEXT_BACK_TO . ' ' . TEXT_TODAY . ' </a> | ';
   }
 // End User Tracking - Ver 1.4.2 Mod 1 of 
 
-  echo '<a href="' . FILENAME_USER_TRACKING . '.php?time=' ;  //v1.4.3 6 of 15 
-  echo $time_frame - 86400 . '">' . TEXT_BACK_TO . ' ' . date("M d, Y", $time_frame - 86400) . '</a> ';
+  echo '<a href="' . zen_href_link(FILENAME_USER_TRACKING, 'time=' . ($time_frame - 86400), $request_type) . '">' . TEXT_BACK_TO . ' ' . date("M d, Y", $time_frame - 86400) . '</a> ';
 
   if (time() > $time_frame + 86400)
   {
-    echo '| <a href="' . FILENAME_USER_TRACKING . '.php?time=' ;  //v1.4.3 7 of 15 
-    echo $time_frame + 86400 . '">' . TEXT_FORWARD_TO . date("M d, Y", $time_frame + 86400) . '</a>';
+    echo '| <a href="' . zen_href_link(FILENAME_USER_TRACKING,  'time=' . ($time_frame + 86400) , $request_type) . '">' . TEXT_FORWARD_TO . date("M d, Y", $time_frame + 86400) . '</a>';
   }
 
 // Start User Tracking - Ver 1.4.2 Mod 2 of 
   if (time() > $time_frame + 172800)
   {
-    echo ' | <a href="' . FILENAME_USER_TRACKING . '.php?time=' ;  //v1.4.3 8 of 15 
+//v1.4.3 8 of 15 
     $newTime = time();
-    echo ($time_frame + ((int)(($newTime - $time_frame) / 86400)) * 86400 ) . '">' . TEXT_FORWARD_TO . ' ' . TEXT_TODAY . ' </a>';
-  }
+    $newTime = ($time_frame + ((int)(($newTime - $time_frame) / 86400)) * 86400 );
+    //echo $newTime . '">' . TEXT_FORWARD_TO . ' ' . TEXT_TODAY . ' </a>';
+    echo ' | <a href="' . zen_href_link(FILENAME_USER_TRACKING,  'time=' . $newTime, $request_type) . '">' . TEXT_FORWARD_TO . ' ' . TEXT_TODAY . ' </a>';
+   }
 // End User Tracking - Ver 1.4.2 Mod 2 of 
 if (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_RECORDS == 'true'){  //v1.4.3 9 of 15 
   echo "<p>" . TEXT_DISPLAY_START . CONFIG_USER_TRACKING_SESSION_LIMIT . TEXT_DISPLAY_END;
 	//Begin of v1.4.3 10 of 15 
-  echo TEXT_PURGE_START . ' <a href="' . FILENAME_USER_TRACKING . '.php?purge='. CONFIG_USER_TRACKING_PURGE_NUMBER . '">' . TEXT_PURGE_RECORDS . '</a> ' . TEXT_PURGE_END. '</font><p>';
+  echo TEXT_PURGE_START . ' <a href="' . zen_href_link(FILENAME_USER_TRACKING, 'purge='. CONFIG_USER_TRACKING_PURGE_NUMBER, $request_type) . '">' . TEXT_PURGE_RECORDS . '</a> ' . TEXT_PURGE_END. '</font><p>';
 }
 if (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true' || CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_IP == 'true'){
-  echo TEXT_DELETE_IP . CONFIG_USER_TRACKING_EXCLUDED . ' <a href="' . FILENAME_USER_TRACKING . '.php?delip=1">'. TEXT_PURGE_RECORDS. '</a> </font>';
+  echo TEXT_DELETE_IP . CONFIG_USER_TRACKING_EXCLUDED . ' <a href="' . zen_href_link(FILENAME_USER_TRACKING, 'delip=1', $request_type) . '">'. TEXT_PURGE_RECORDS. '</a> </font>';
 }
   echo "<p>";
 	//End of v1.4.3 10 of 15 
@@ -336,14 +337,14 @@ echo '
    {
      $stripped_name = strip_tags($ut['value']['full_name']);
      $exploded_name = explode(" ", $stripped_name);
-     $customer_link = "<a href=" . DIR_WS_ADMIN . "customers.php?search=" . $exploded_name[1] . ">" . $ut['value']['full_name'] . "</a>";
+     $customer_link = "<a href='" . zen_href_link(FILENAME_CUSTOMERS, "search=" . $exploded_name[1], $request_type) . "'>" . $ut['value']['full_name'] . "</a>";
    }
    else
    {
      $customer_link = $ut['value']['full_name'];
    }
    	//Begin of v1.4.3 15 of 15 ?>
-   <td colspan = "5" class="dataTableContent" valign="top"><a name="<?php echo $ut['value']['session_id'];?>"></a><?php echo $customer_link . ",&nbsp;" . $ut['value']['session_id'] . ", <a href=\"user_tracking.php?" . ($_GET['time'] ? "time=" . $_GET['time'] . "&" : "") . "delsession=" . $ut['value']['session_id'] . "\">" . (((CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true') || (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_SESSIONS == 'true' )) ? "<font color=red>[delete session]</font>," : "" ) . "</a>" . " <a href=\"user_tracking.php?" . ($_GET['time'] ? "time=" . $_GET['time'] . "&" : "") . "viewsession=" . $ut['value']['session_id'] . "#" . $ut['value']['session_id'] . "\"><font color=green>[view session]</font></a>";?></td>
+   <td colspan = "5" class="dataTableContent" valign="top"><a name="<?php echo $ut['value']['session_id'];?>"></a><?php echo $customer_link . ",&nbsp;" . $ut['value']['session_id'] . ", <a href=\"" . zen_href_link(FILENAME_USER_TRACKING, ($_GET['time'] ? "time=" . $_GET['time'] . "&" : ""). "delsession=" . $ut['value']['session_id'], $request_type)  . "\">" . (((CONFIG_USER_TRACKING_ADMIN_CAN_DELETE == 'true') || (CONFIG_USER_TRACKING_ADMIN_CAN_DELETE_SESSIONS == 'true' )) ? "<font color=red>[delete session]</font>," : "" ) . "</a>" . " <a href=\"". zen_href_link(FILENAME_USER_TRACKING, ($_GET['time'] ? "time=" . $_GET['time'] . "&" : "") . "viewsession=" . $ut['value']['session_id'] . "#" . $ut['value']['session_id'], $request_type) . "\"><font color=green>[view session]</font></a>";?></td>
 <?php 	//End of v1.4.3 15 of 15
 
     // shopping cart decoding

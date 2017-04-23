@@ -4,6 +4,9 @@ Forum is located at: http://www.zen-cart.com/showthread.php?35081-User-tracking-
 
 Notes being considered for modification of this plug-in as captured from the plug-in forum:
 
+Incorporate new country images (smaller file size); however, include a switch to control which type of image to load, because the images may be of a different file extension.  Also would want a check to validate that at least one type exists.
+
+
 Add if you want to track admin pages viewed add the following to the end of /admin/includes/footer.php
 
 <?php if (ADMIN_CONFIG_USER_TRACKING == 'true' && function_exists('zen_update_user_tracking')) { zen_update_user_tracking(); } ?> 
