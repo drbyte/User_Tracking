@@ -75,13 +75,13 @@ function zen_update_user_tracking()
 
 	$wo_last_page_url = substr($wo_last_page_url, 0, 253);
 	/* Start - User tracking v1.4.3b modification*/
-    while (strpos(right($wo_last_page_url, 1), '\\') !== false) {
+    while (strpos(substr($wo_last_page_url, -1), '\\') !== false) {
 		$wo_last_page_url = substr($wo_last_page_url, 0, -1);    
 	}
 	/* End - User tracking v1.4.3b modification*/
 
 	/* Start - User tracking v1.4.3b modification*/
-	while (strpos(right($referer_url, 1), '\\') !== false) {
+	while (strpos(substr($referer_url, -1), '\\') !== false) {
 		$referer_url = substr($referer_url, 0, -1);    
 	}
 	/* End - User tracking v1.4.3b modification*/

@@ -1,10 +1,10 @@
 Contribution:  User Tracking
-Version:  V.1.4.3a
+Version:  V.1.4.4
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
 Updated by: mc12345678
-Thanks to BlessIsaacola for helping correct the newinstallsql
+Thanks to BlessIsaacola for helping correct the newinstallsql and continued testing
 License: under the GPL - See attached License for info.
 Forum Support:  Only given via the forums, please. http://www.zen-cart.com/forum/showthread.php?t=35081
 

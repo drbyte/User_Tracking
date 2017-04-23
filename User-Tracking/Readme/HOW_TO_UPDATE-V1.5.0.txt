@@ -1,5 +1,5 @@
 Contribution:  User Tracking
-Version:  V.1.4.3a
+Version:  V.1.4.4
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
@@ -7,6 +7,36 @@ Updated by: mc12345678
 License: under the GPL - See attached License for info.
 Support:  Only given via the forums, please. http://www.zen-cart.com/forum/showthread.php?t=35081
 
+========================================================
+Updated 11/26/2013 Version 1.4.4
+1. Corrected a PHP warning that appeared because of use of the incorrect programming language.
+2. Corrected a problem that could appear in the tracking_user_config area introduced in Version 1.4.3.
+
+UPDATING INSTRUCTIONS:
+For SQL statements: same instructions as applicable from the 11/10/2013 update.
+
+Files updated from 1.4.3b are:
+YOUR_ADMIN\user_tracking_config.php
+includes\functions\extra_functions\user_tracking.php
+
+Files updated from 1.4.3 or 1.4.3a are:
+YOUR_ADMIN\user_tracking.php
+YOUR_ADMIN\user_tracking_config.php
+YOUR_ADMIN\includes\lanaguages\english\user_tracking.php
+includes\functions\extra_functions\user_tracking.php 
+========================================================
+Updated 11/24/2013 Version 1.4.3b
+1. Corrected a PHP warning that appears if there are no visits tracked for the date being reviewed.
+2. Corrected an issue that had the possibility of generating an error log: If a product's description included a character that would be translated by use of an escape character as part of a SQL command, (eg: he's would be changed to he\'s) then, if that escape character landed in just the right position, it would end up as the last character in the string prior to a single quote as part of the SQL statement. This would then cause an error in the execution of the SQL statement and an error log to be generated. Resolution was to remove the last character if that last character is a \. This issue has been resolved for: page description, last page URI, and referrer URI.
+3. Updated the button display of spiders, such that if option 3 is chosen in system setup that a message appears.
+
+UPDATING INSTRUCTIONS:
+For SQL statemenst: same instructions as applicable from the 11/10/2013 update.
+
+Files updated from 1.4.3 or 1.4.3a are:
+YOUR_ADMIN\user_tracking.php
+YOUR_ADMIN\includes\lanaguages\english\user_tracking.php
+includes\functions\extra_functions\user_tracking.php 
 ========================================================
 Updated 11/14/2013 Version 1.4.3a
 1. Updated the version numbers of the instructions and the new_install_user_tracking.sql file. No other changes made in this version.
