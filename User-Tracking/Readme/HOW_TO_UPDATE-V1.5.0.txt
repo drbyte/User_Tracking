@@ -1,5 +1,5 @@
 Contribution:  User Tracking
-Version:  V.1.4.0
+Version:  V.1.4.1
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
@@ -25,5 +25,14 @@ UPDATING INSTRUCTIONS:
 If updating from previous versions 1.3.9h etc. Remove the following files from the admin for V 1.5.0 new navigation method
 
 admin --> includes --> boxes --> extra_boxes --> user_tracking_tools_dhtml.php
+
+UPDATED 06/15/2013
+
+Added ability to hide/show spider visits using the spiders.txt file of Zen Cart.  Default view is to hide spider visits.
+Modified the information shown at the bottom of the view to show the number of users and number of bots/spiders that have visited.  This spider/bot information will show whether the actual visit is or is not shown.  Also incorporated modifications published in the Thread related to display of the Idle time of a visitor.  (Previous calculations lead to incorrect display depending on timezone.)
+
+UPDATING INSTRUCTIONS:
+
+Similar updating instructions as previous for updating from earlier Zen Cart version, if updating from Version 1.4.0 of User Tracking, then need to only replace/update the admin/user_tracking.php file.
 
 Enjoy....
