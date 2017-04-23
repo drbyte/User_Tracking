@@ -22,6 +22,6 @@ define('TABLE_USER_TRACKING', DB_PREFIX . 'user_tracking');
 define('DIR_WS_FLAGS', 'images/flags/');
 define('BOX_TOOLS_USER_TRACKING', 'User Tracking');
 define('BOX_TOOLS_USER_TRACKING_CONFIG', 'User Tracking Config');
-define('FILENAME_USER_TRACKING', 'user_tracking.php');
-define('FILENAME_USER_TRACKING_CONFIG', 'user_tracking_config.php');
+define('FILENAME_USER_TRACKING', 'user_tracking'); //Ver 1.4.3 modified
+define('FILENAME_USER_TRACKING_CONFIG', 'user_tracking_config'); //Ver 1.4.3 modified
 ?>
