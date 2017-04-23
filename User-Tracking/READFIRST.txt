@@ -1,1 +1,1 @@
-Read the UPDATE-V1.5.0.txt file before continuing.
+Read the UPDATE-V1.5.0.txt and New_Install_Readme.txt files in the Readme folder before continuing.

@@ -38,26 +38,26 @@ function zen_update_user_tracking()
     $wo_ip_address = getenv('REMOTE_ADDR');
     $wo_last_page_url = addslashes(getenv('REQUEST_URI'));
     $referer_url = ($_SERVER['HTTP_REFERER'] == '') ?  $wo_last_page_url : $_SERVER['HTTP_REFERER'];
-	if (($_GET['products_id'] || $_GET['cPath'])) {
-		if ($_GET['cPath'] && ZEN_CONFIG_SHOW_USER_TRACKING_CATEGORY == 'true') {   // JTD:12/04/06 - Woody feature request
-			$cPath = $_GET['cPath'];
-			$cPath_array = zen_parse_category_path($cPath);
-			$cPath = implode('_', $cPath_array);
-			$current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
-			$page_desc_values = $db->Execute("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $current_category_id . "'");
-			$page_desc = addslashes($page_desc_values->fields['categories_name']) . '&nbsp;-&nbsp;';
-		}
-	if ($_GET['products_id']) {
-		$page_desc_values = $db->Execute("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . $_GET['products_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
-		$page_desc .= addslashes($page_desc_values->fields['products_name']);
-	    }
-	}
-	else {
-		$page_desc = addslashes(HEADING_TITLE);
-		if ($page_desc == "HEADING_TITLE")
-			$page_desc = addslashes(NAVBAR_TITLE);
-	}
-	$current_time = time();
+        if (($_GET['products_id'] || $_GET['cPath'])) {
+                if ($_GET['cPath'] && ZEN_CONFIG_SHOW_USER_TRACKING_CATEGORY == 'true') {   // JTD:12/04/06 - Woody feature request
+                        $cPath = $_GET['cPath'];
+                        $cPath_array = zen_parse_category_path($cPath);
+                        $cPath = implode('_', $cPath_array);
+                        $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
+                        $page_desc_values = $db->Execute("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $current_category_id . "'");
+                        $page_desc = addslashes($page_desc_values->fields['categories_name']) . '&nbsp;-&nbsp;';
+                }
+        if ($_GET['products_id']) {
+                $page_desc_values = $db->Execute("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . $_GET['products_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+                $page_desc .= addslashes($page_desc_values->fields['products_name']);
+            }
+        }
+        else {
+                $page_desc = addslashes(HEADING_TITLE);
+                if ($page_desc == "HEADING_TITLE")
+                        $page_desc = addslashes(NAVBAR_TITLE);
+        }
+        $current_time = time();
     if ($skip_tracking[$wo_ip_address] != 1) {
     // JTD:05/15/06 - Query bug fixes for mySQL 5.x
     $cust_id = $_SESSION['customer_id'];

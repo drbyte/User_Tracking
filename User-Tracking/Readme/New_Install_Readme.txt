@@ -2,21 +2,22 @@ NEW Installation Procedure:
 
 Forum Support URL: http://www.zen-cart.com/forum/showthread.php?t=35081
 
-1. The files in the contribution are arranges to zen 1.50 directory, just put them in the appropriate places
+1. The files in the contribution are arranged for Zen-Cart Version 1.50, just put them in the appropriate folders
 
-1-B: File structure is ready to drop in. Rename the (admin) to match your custom admin folder directory and upload the files within it.
+1-B: The file structure is ready to drop in. Rename the admin folder to match your custom admin folder directory and upload the files within it.
 
-2. Install sql patch file, preferabely by phpMyAdmin than add sql patch of zen (as recommended in the forum)
+2. Install sql patch file, preferably by phpMyAdmin then add sql patch to zen (as recommended in the forum).
 
-3. File Modifications: 3-1- add the following to the end of /includes/templates/ YOUR TEMPLATE /common/tpl_footer.php
+3. File Modifications: 
+	3-1- to allow tracking pages loaded by visiting the site, add the following line to the end of /includes/templates/YOUR TEMPLATE/common/tpl_footer.php.  If the file does not exist in your template, then copy the common/tpl_footer.php file from the default_template into the folder named for your chosen template(s).  (This is the recommended location to store changes to Zen Cart, reportedly to be easier to upgrade when changes come out or if it is desired to return to basic settings.)
 
-<?php if (ZEN_CONFIG_USER_TRACKING == 'true') { zen_update_user_tracking(); } ?>
+<?php $zco_notifier->notify('NOTIFY_FOOTER_END'); ?>
 
-3.B add if you want to track admin pages viewed add the following to the end of /admin/includes/footer.php
+3.B To allow tracking pages loaded in the admin area, add the following to the end of /YOUR_ADMIN/includes/footer.php.  
 
-<?php if (ADMIN_CONFIG_USER_TRACKING == 'true') { zen_update_user_tracking(); } ?>
+<?php $zco_notifier->notify('NOTIFY_ADMIN_FOOTER_END'); ?>
 
-4. Login into the admin upload via Install SQL Patches the file in Sql --> new_install_user_tracking.sql
+4. Login into the admin area, upload via Admin/Tools --> Install SQL Patches the file in Sql --> new_install_user_tracking.sql
 
 5. Go to admin of store (ZenCart), in admin/configuration and or in admin/tools you should see user tracking config, by clicking on this you should see:
 
@@ -29,19 +30,17 @@ User Tracking (exclude this IP-Address) your IP
 User Tracking (Session Limit) 50   
 User Tracking (your favorite WHOIS URL) http://www.dnsstuff.com/tools/whois.ch?ip=   
 User Tracking (Show Product Category when tracking product clicks) true   
-User Tracking Visitors 
 
-Check the Customers/Guests behaviour ? (each click will be recorded) 
-
-Date Added: 09/02/2003 
-Last Modified: 03/03/2003 
-5- in admin/tools click on user tracking, you should see:
+6- in admin/tools click on user tracking, you should see:
 
 User Tracking Start: 
 
-This tool allows for you to see the click patterns of the users through your site, organized by sessions. This data can be very valuable to those looking for how to improve your site by watching how customers actually use it. You can surf back and forth through the days by using the link below.
-SELECT VIEW: Back to Feb 15, 2007 
+This tool allows for you to see the click patterns of the users through your site, organized by sessions. This data can be very valuable to those looking for ways/areas to improve your site by watching how customers actually use it. You can surf back and forth through the days by using the link below.
 
-Now displaying the latest 50 sessions of this 24 hour period. You can also purge all records past the last 72 hours of data.
-
-Delete all info from IP-Address your IP purge all records 
+7- troubleshooting:
+7-1- first check again if all files are correctly located in the zen directories.
+7-2- go to phpmyadmin, in table, configuration, delete all values related to user tracker, in table configuration-group, delete the table user tracking
+7-3- try install sql package with alternative method (if the first time was phpmyadmin, so this time do with zen admin add sql patch tools)
+7-4- check again if you have added one modification to both files, tpl.footer.php and footer.php
+7-5- still problem, take a look at forum and submit your question.
+ 
