@@ -1,1 +1,14 @@
-Read the UPDATE-V1.5.0.txt and New_Install_Readme.txt files in the Readme folder before continuing.
+Read the HOW_TO_UPDATE-V1.5.x.txt or New_Install_Readme.txt files in the Readme folder before continuing.  The text below is related to future modifications of this plug-in and does not offer any other signficant information.
+
+Forum is located at: http://www.zen-cart.com/showthread.php?35081-User-tracking-mod
+
+Notes being considered for modification of this plug-in as captured from the plug-in forum:
+
+Incorporate new country images (smaller file size); however, include a switch to control which type of image to load, because the images may be of a different file extension.  Also would want a check to validate that at least one type exists.
+
+
+Images could potentially be reduced by gathering them from: http://www.famfamfam.com/lab/icons/flags/
+
+supported and updated geo information available from: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+a newer processor is needed to support geo information available from: http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
+

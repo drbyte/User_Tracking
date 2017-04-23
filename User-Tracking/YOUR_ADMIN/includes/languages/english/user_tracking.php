@@ -41,6 +41,8 @@ define('TEXT_NUMBER_OF_SPIDERS', ' Total number of spiders: %u.');
 define('TEXT_NUMBER_OF_USERS', ' Total number of users: %u.');
 define('TEXT_HIDE_SPIDERS', 'Hide Spiders');
 define('TEXT_SHOW_SPIDERS', 'Show Spiders');
+define('TEXT_OPTION3_SPIDER_HIDE',' *This option may not provide results because of an admin setting ');
+define('TEXT_SPIDER_HIDE_OTHERS', '');
 
 define('TEXT_HAS_BEEN_PURGED', 'All User Records Older Than 72 Hours Purged!');
 define('TEXT_SELECT_VIEW', 'SELECT VIEW');
@@ -52,13 +54,16 @@ define('TEXT_DISPLAY_END', ' sessions of this 24 hour period. ');
 
 define('TEXT_PURGE_START', 'You can also ');
 define('TEXT_PURGE_RECORDS', 'purge all records');
-define('TEXT_PURGE_END', ' past the last 72 hours of data.');
+define('TEXT_PURGE_END', ' past the last ' . CONFIG_USER_TRACKING_PURGE_NUMBER . ' ' . (CONFIG_USER_TRACKING_PURGE_UNITS == 60 ? 'hour(s)': (CONFIG_USER_TRACKING_PURGE_UNITS == 1440 ? 'day(s)' : (CONFIG_USER_TRACKING_PURGE_UNITS == 10080 ? 'week(s)' : (CONFIG_USER_TRACKING_PURGE_UNITS == 43200 ? 'month(s)': 'unknown/error')))) . ' of data.'); //Modified for v1.4.3
 define('TEXT_USER_SHOPPING_CART', '&nbsp;User&nbsp;Shopping&nbsp;Cart&nbsp;');
 
 define('TEXT_ORIGINATING_URL', 'Originating&nbsp;URL:');
 define('TEXT_IDLE_TIME', 'Idle Time:');
 define('TEXT_TOTAL_TIME', 'Total Time:');
 define('TEXT_DELETE_IP', 'Delete all info from IP-Address ');
+define('TEXT_CLICK_COUNT', 'Click Count:');
+define('TEXT_BUTTON_REFRESH', 'Report/Refresh');
+define('TEXT_SHOW_MINIMUM_PAGE_VIEWS', 'Min Clicks');
 
 define('ENTRY_START_DATE', 'Start:');
 define('ENTRY_START_DATE_TEXT', '*');
@@ -114,5 +119,3 @@ Grenadines", "Venezuela", "Virgin Islands, British", "Virgin Islands, U.S.",
 "Vietnam", "Vanuatu", "Wallis and Futuna", "Samoa", "Yemen", "Mayotte",
 "Yugoslavia", "South Africa", "Zambia", "Zaire", "Zimbabwe"
 );
-
-?>

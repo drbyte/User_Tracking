@@ -1,3 +1,0 @@
-INSERT INTO admin_pages (page_key, language_key, main_page, page_params, menu_key, display_on_menu, sort_order) VALUES ('UserTracking', 'BOX_TOOLS_USER_TRACKING', 'FILENAME_USER_TRACKING', '', 'tools', 'Y', 10000); 
-
-INSERT INTO admin_pages (page_key, language_key, main_page, page_params, menu_key, display_on_menu, sort_order) VALUES ('UserTrackingConfig', 'BOX_TOOLS_USER_TRACKING_CONFIG', 'FILENAME_USER_TRACKING_CONFIG', '', 'tools', 'Y', 10001);
