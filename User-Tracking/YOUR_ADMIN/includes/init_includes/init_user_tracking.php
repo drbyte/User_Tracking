@@ -31,6 +31,7 @@ if (defined('CONFIG_' . $module_constant . '_VERSION')) {
       $configuration_group_id = $db->Insert_ID();
     } else {
       $configuration_group_id = $installed->fields['configuration_group_id'];
+      $installed = $db->Execute("SELECT configuration_value FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'CONFIG_" . $module_constant . "_VERSION' LIMIT 1;");
     }
 
     $db->Execute("UPDATE " . TABLE_CONFIGURATION_GROUP . " SET sort_order = " . $configuration_group_id . " WHERE configuration_group_id = " . $configuration_group_id . ";");
@@ -38,7 +39,7 @@ if (defined('CONFIG_' . $module_constant . '_VERSION')) {
     if ($installed->EOF || $installed->RecordCount() == 0)
     {
       $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function) VALUES
-                      ($module_name . ' (Version Installed)', 'CONFIG_" . $module_constant . "_VERSION', '0.0.0', 'Version installed:', " . $configuration_group_id . ", 0, NOW(), NULL, 'zen_cfg_select_option(array(\'0.0.0\'),');");
+                      ('" . $module_name . " (Version Installed)', 'CONFIG_" . $module_constant . "_VERSION', '0.0.0', 'Version installed:', " . $configuration_group_id . ", 0, NOW(), NULL, 'zen_cfg_select_option(array(\'0.0.0\'),');");
     }
 }
 if ($configuration_group_id == '') {
