@@ -28,4 +28,3 @@ if (!defined('IS_ADMIN_FLAG')) {
 	'className' => 'user_tracking_admin',
 	'objectName' => 'user_tracking_admin_observe'
 	); 
-?>

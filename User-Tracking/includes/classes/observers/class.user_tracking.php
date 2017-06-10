@@ -23,5 +23,3 @@ class user_tracking extends base {
 	}
 	
 }
-
-?>

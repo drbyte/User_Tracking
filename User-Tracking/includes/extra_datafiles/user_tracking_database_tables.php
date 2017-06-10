@@ -19,4 +19,3 @@
 // +----------------------------------------------------------------------+
 //  $Id: usertracking 2004-12-1 dave@open-operations.com http://open-operations.com
 define('TABLE_USER_TRACKING', DB_PREFIX . 'user_tracking');
-?>
