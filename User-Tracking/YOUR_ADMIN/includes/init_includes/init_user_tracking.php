@@ -99,7 +99,7 @@ if (SHOW_VERSION_UPDATE_IN_HEADER && !function_exists('plugin_version_check_for_
         if (!in_array('v' . PROJECT_VERSION_MAJOR . '.' . PROJECT_VERSION_MINOR, $data[$lookup_index]['zcversions'])) {
             $new_version_available = FALSE;
         }
-        if ($version_string_to_check == true) {
+        if ($new_version_available == true) {
             return $data[$lookup_index];
         } else {
             return FALSE;
