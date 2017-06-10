@@ -6,9 +6,8 @@
  * @author mc12345678
  */
 class user_tracking extends base {
-	function user_tracking() {
-		global $zco_notifier;
-		$zco_notifier->attach($this, array('NOTIFY_FOOTER_END')); 
+  function __construct() {
+    $this->attach($this, array('NOTIFY_FOOTER_END')); 
 	}	
 
 	function update(&$callingClass, $notifier, $paramsArray) {

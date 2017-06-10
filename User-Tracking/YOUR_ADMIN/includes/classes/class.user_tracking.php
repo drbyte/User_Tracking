@@ -11,9 +11,8 @@ if (!defined('IS_ADMIN_FLAG')) {
 } 
 
 class user_tracking_admin extends base {
-	function user_tracking_admin() {
-		global $zco_notifier;
-		$zco_notifier->attach($this, array('NOTIFY_ADMIN_FOOTER_END')); 
+	function __construct() {
+		$this->attach($this, array('NOTIFY_ADMIN_FOOTER_END')); 
 	}	
 
 	function update(&$callingClass, $notifier, $paramsArray) {
@@ -24,4 +23,4 @@ class user_tracking_admin extends base {
 	
 }
 
-?>
+
