@@ -50,6 +50,7 @@ if ($configuration_group_id == '') {
 $installers = scandir($module_installer_directory, 1);
 
 $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
+$file_extension_len = strlen($file_extension);
 
 while (substr($installers[0], strrpos($installers[0], '.')) != $file_extension || preg_match('~^[^\._].*\.php$~i', $installers[0]) <= 0 || $installers[0] == 'empty.txt') {
   unset($installers[0]);
@@ -62,15 +63,15 @@ while (substr($installers[0], strrpos($installers[0], '.')) != $file_extension |
 
 if (sizeof($installers) > 0) {
     $newest_version = $installers[0];
-    $newest_version = substr($newest_version, 0, -4);
+    $newest_version = substr($newest_version, 0, -1 * $file_extension_len);
 
     sort($installers);
     if (version_compare($newest_version, $current_version) > 0) {
         foreach ($installers as $installer) {
             if (substr($installer, strrpos($installer, '.')) == $file_extension && (preg_match('~^[^\._].*\.php$~i', $installer) > 0 || $installer != 'empty.txt')) {
-                if (version_compare($newest_version, substr($installer, 0, -4)) >= 0 && version_compare($current_version, substr($installer, 0, -4)) < 0) {
+                if (version_compare($newest_version, substr($installer, 0, -1 * $file_extension_len)) >= 0 && version_compare($current_version, substr($installer, 0, -1 * $file_extension_len)) < 0) {
                     include($module_installer_directory . '/' . $installer);
-                    $current_version = str_replace("_", ".", substr($installer, 0, -4));
+                    $current_version = str_replace("_", ".", substr($installer, 0, -1 * $file_extension_len));
                     $db->Execute("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value = '" . $current_version . "', set_function = 'zen_cfg_select_option(array(\'" . $current_version . "\'),' WHERE configuration_key = 'CONFIG_" . $module_constant . "_VERSION' LIMIT 1;");
                     $messageStack->add("Installed " . $module_name . " v" . $current_version, 'success');
                 }
