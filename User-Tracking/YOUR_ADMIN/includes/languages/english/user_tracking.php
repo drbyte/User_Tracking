@@ -63,6 +63,8 @@ define('TEXT_TOTAL_TIME', 'Total Time:');
 define('TEXT_DELETE_IP', 'Delete all info from IP-Address ');
 define('TEXT_CLICK_COUNT', 'Click Count:');
 define('TEXT_BUTTON_REFRESH', 'Report/Refresh');
+define('TEXT_BUTTON_VIEW', 'View');
+define('TEXT_BUTTON_DELETE', 'Delete');
 define('TEXT_SHOW_MINIMUM_PAGE_VIEWS', 'Min Clicks');
 
 define('ENTRY_START_DATE', 'Start:');
