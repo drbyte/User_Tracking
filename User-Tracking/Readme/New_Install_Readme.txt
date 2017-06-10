@@ -1,5 +1,5 @@
 Contribution:  User Tracking
-Version:  V.1.5.3
+Version:  V.1.5.4
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
@@ -8,7 +8,7 @@ Thanks to BlessIsaacola for helping correct the newinstallsql and continued test
 Thanks also to bislewl for the layout/concept of the autoinstaller code.
 Thanks to torvista for continued behind the scenes modifications and suggestions.
 Thanks to DrByte for allowing me (mc12345678) the opportunity to update a program and to push for such updates to come to fruition.
-License: under the GPL - See attached License for info.
+License: under the GPL - See http://www.gnu.org/licenses/licenses.html#GPL License for info.
 Forum Support:  Only given via the forums, please. http://www.zen-cart.com/forum/showthread.php?t=35081
 
 ========================================================
@@ -59,6 +59,29 @@ This tool allows for you to see the click patterns of the users through your sit
 7-4- check again if you have added one modification to both files, tpl.footer.php and footer.php
 7-5- still problem, take a look at forum (forum address at the top of this readme) and submit your question.
 
+
+Updated 06/10/2017 Version 1.5.4 mc12345678:
+1. Revised the installer to restore the expected operation. Bug had been introduced that prevented recognition of full installation.
+2. Incorporated an additional check/correction to support reperformance of the installation if an error was introduced during installation, 
+helping to move forward from the above problem.
+3. Generalized the installer further to not depend on the file extension taking only 4 characters in length.
+4. Added install file to recognize this version.
+5. Updated the geodata to the 8 June 2017 version.
+6. Cleaned up code a little by removing closing php statements.
+7. Prevent the install auto_loader from activating from the catalog side.
+8. Rename class constructors to be PHP 7.0 compliant.
+9. Modified the display of the User Tracking information
+    to use the generic admin table type class/object.
+10. The idea is/was that it may make transition to ZC 1.6.0
+    easier, though could also be undone as necessary.
+11. Further completed the transition of GET links to POST buttons.
+12. Incorporated the type conversion issue identified
+    by davewest at: https://www.zen-cart.com/showthread.php?222290-Type-conversion-numeric-to-string-and-back&highlight=user+tracking+mktime
+13. Generally adjusted the lines of the main page to use
+    spaces instead of tabs, aligned code to support improved
+    readability.
+14. Incorporated associated language file modifications,
+    even if the language is/was not translated yet.
 
 Updated 02/23/2017 Version 1.5.3 mc12345678:
 1. Implemented an installation/upgrade script instead of expecting users to try to successfully run the installation sql and to 
