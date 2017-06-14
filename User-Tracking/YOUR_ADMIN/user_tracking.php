@@ -387,7 +387,7 @@
 
   $col['body'] = array();
   $row['body'] = array();
-<!--        <table border="0" width="100%" cellspacing="0" cellpadding="0"> -->
+
   // Initialize body2 table
   $boxes['body2'] = new box;
   $boxes['body2']->table_width = '100%';
