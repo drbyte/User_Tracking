@@ -17,8 +17,6 @@
 // | to obtain it through the world-wide-web, please send a note to       |
 // | license@zen-cart.com so we can mail you a copy immediately.          |
 // +----------------------------------------------------------------------+
-//  $Id: usertracking 2004-12-1 dave@open-operations.com http://open-operations.com
-define('TABLE_USER_TRACKING', DB_PREFIX . 'user_tracking');
-define('DIR_WS_FLAGS', 'images/flags/');
-define('FILENAME_USER_TRACKING', 'user_tracking'); //Ver 1.4.3 modified
-define('FILENAME_USER_TRACKING_CONFIG', 'user_tracking_config'); //Ver 1.4.3 modified
+//  $Id: usertracking 2017-06-30 mc12345678 http://mc12345678.com
+define('BOX_TOOLS_USER_TRACKING', 'User Tracking');
+define('BOX_TOOLS_USER_TRACKING_CONFIG', 'User Tracking Config');
