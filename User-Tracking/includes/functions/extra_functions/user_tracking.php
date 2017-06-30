@@ -21,18 +21,17 @@
 function zen_update_user_tracking()
   {
     global $db;
-    global $customer_id, $languages_id, $_GET;
     
     foreach(explode(",", CONFIG_USER_TRACKING_EXCLUDED) as $skip_ip) {
     $skip_tracking[trim($skip_ip)] = 1;
     }
     if ($_SESSION['customer_id']) {
-      $wo_customer_id = $customer_id;
+//      $wo_customer_id = $customer_id;
     $customer = $db->Execute("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $_SESSION['customer_id'] . "'");
     $wo_full_name = $db->prepare_input($customer->fields['customers_firstname'] . ' ' . $customer->fields['customers_lastname']);
     }
     else {
-    $wo_customer_id = '';
+//      $wo_customer_id = '';
     $wo_full_name = $db->prepare_input('Guest');
     }
     $wo_session_id = $db->prepare_input(zen_session_id());
