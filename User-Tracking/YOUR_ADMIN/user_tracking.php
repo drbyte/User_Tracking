@@ -541,7 +541,7 @@
 
           $col['body3'][] = array('params' => 'class="smallText"',
                                   'form' => zen_draw_form('user_tracking_stats', FILENAME_USER_TRACKING, '', 'post', ''),
-                                  'text' => EXPLAINATION,
+                                  'text' => EXPLANATION,
                                  );
 
           $row['body3'][] = array_merge($col['body3'], array('params' => 'bgcolor="ffffff"'));

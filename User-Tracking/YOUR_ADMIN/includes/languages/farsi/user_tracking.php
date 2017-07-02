@@ -18,8 +18,8 @@
 // | license@zen-cart.com so we can mail you a copy immediately.          |
 // +----------------------------------------------------------------------+
 //  $Id: usertracking 2004-12-1 dave@open-operations.com http://open-operations.com
-define('EXPLAINATION', 'This tool allows for you to see the click patterns of the users through your site, organized by 
-sessions. This data can be very valuable to those looking for how to improve your site by watching how customers actually 
+define('EXPLAINATION', 'This tool allows for you to see the click patterns of the users through your site, organized by
+sessions.  This data can be very valuable to those looking for how to improve your site by watching how customers actually
 use it.  You can surf back and forth through the days by using the link below.  <br />
 Idle time is calculated from the current date/time and is based off of the last action taken during the session.');
 define('HEADING_TITLE', 'User Tracking');
@@ -126,4 +126,3 @@ Grenadines", "Venezuela", "Virgin Islands, British", "Virgin Islands, U.S.",
 "Vietnam", "Vanuatu", "Wallis and Futuna", "Samoa", "Yemen", "Mayotte",
 "Yugoslavia", "South Africa", "Zambia", "Zaire", "Zimbabwe"
 );
-
