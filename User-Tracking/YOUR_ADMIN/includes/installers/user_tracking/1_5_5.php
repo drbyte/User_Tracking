@@ -7,9 +7,21 @@
  * @version $Id: mc12345678 thanks to bislewl 6/9/2015
  */
 
+/**
+ *
+ * Version 1.5.5:
+ * - Removed HTML that was in the middle of PHP code.
+ * - Moved Admin menu option "name" to the languages folder to support multiple languages.
+ * - Improved sanitization for catalog and store side data capture.
+ * - Made radio labels clickable to support radio button activation.
+ * - Added feature to filter URL information that was captured when the site was visited.
+ * - Added default settings to the top of the admin/user_tracking.php file.
+ * - Removed unused code/variables in the two detection files.
+ * - Updated version compare software to latest available in the ZC 1.5.5 series (not identified yet to a specific version)
+ **/
+
 $zc150 = (PROJECT_VERSION_MAJOR > 1 || (PROJECT_VERSION_MAJOR == 1 && substr(PROJECT_VERSION_MINOR, 0, 3) >= 5));
 if ($zc150) { // continue Zen Cart 1.5.0
-    // Updated installer to restore proper operation.
 
     $next_sort = $db->Execute('SELECT (MAX(sort_order) + 10) as sort FROM ' . TABLE_CONFIGURATION . ' WHERE configuration_id = ' . (int)$configuration_id);
     
