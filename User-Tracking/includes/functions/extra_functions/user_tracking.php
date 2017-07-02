@@ -23,16 +23,16 @@ function zen_update_user_tracking()
     global $db;
     
     foreach(explode(",", CONFIG_USER_TRACKING_EXCLUDED) as $skip_ip) {
-    $skip_tracking[trim($skip_ip)] = 1;
+      $skip_tracking[trim($skip_ip)] = 1;
     }
     if ($_SESSION['customer_id']) {
 //      $wo_customer_id = $customer_id;
-    $customer = $db->Execute("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $_SESSION['customer_id'] . "'");
-    $wo_full_name = $db->prepare_input($customer->fields['customers_firstname'] . ' ' . $customer->fields['customers_lastname']);
+      $customer = $db->Execute("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = " . (int)$_SESSION['customer_id']);
+      $wo_full_name = $db->prepare_input($customer->fields['customers_firstname'] . ' ' . $customer->fields['customers_lastname']);
     }
     else {
 //      $wo_customer_id = '';
-    $wo_full_name = $db->prepare_input('Guest');
+      $wo_full_name = $db->prepare_input('Guest');
     }
     $wo_session_id = $db->prepare_input(zen_session_id());
     $wo_ip_address = getenv('REMOTE_ADDR');
@@ -43,12 +43,12 @@ function zen_update_user_tracking()
                         $cPath = $_GET['cPath'];
                         $cPath_array = zen_parse_category_path($cPath);
                         $cPath = implode('_', $cPath_array);
-                        $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
-                        $page_desc_values = $db->Execute("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $current_category_id . "'");
+                        $current_category_id = array_pop($cPath_array);
+                        $page_desc_values = $db->Execute("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = " . (int)$current_category_id);
                         $page_desc = $db->prepare_input($page_desc_values->fields['categories_name'] . '&nbsp;-&nbsp;');
                 }
         if ($_GET['products_id']) {
-                $page_desc_values = $db->Execute("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . $_GET['products_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+                $page_desc_values = $db->Execute("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = " . (int)$_GET['products_id'] . " and language_id = " . (int)$_SESSION['languages_id']);
                 $page_desc .= $db->prepare_input($page_desc_values->fields['products_name']);
             }
         }
@@ -63,7 +63,7 @@ function zen_update_user_tracking()
     // JTD:05/15/06 - Query bug fixes for mySQL 5.x
 	    $wo_ip_address = $db->prepare_input($wo_ip_address);
 	    
-	    $cust_id = $_SESSION['customer_id'];
+	    $cust_id = (int)$_SESSION['customer_id'];
         if ($cust_id == NULL) {
             $cust_id = 0;
         }
