@@ -25,6 +25,10 @@
   require(DIR_WS_INCLUDES . 'geoip.inc'); // <- Updated file usually available from: https://raw.github.com/maxmind/geoip-api-php/tree/master/src/geoip.inc
   $gi = geoip_open(DIR_WS_INCLUDES . 'GeoIP.dat',GEOIP_STANDARD); // <- Updated file usually available from: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
 
+  $default = array();
+  $default['user_filter_search'] = 'ShowAll';
+  $default['SpiderYes'] = false;
+
 // Start User Tracking - Spider Mod 1 of 7 Copied from admin\whos_online.php Zen Cart V1.5.0
   function zen_check_bot($checking) {
     if (empty($checking)) {
@@ -98,8 +102,9 @@
   $headerPosts .= zen_draw_hidden_field('sdate_year', (int)$start_date_year_val);
 
   $hidden_time = mktime (0,0,0, $start_date_month_val,$start_date_day_val,$start_date_year_val/*,-1*/);
-  if (!isset($_POST['time']))
+  if (!isset($_POST['time'])) {
     $_POST['time'] = $hidden_time;
+  }
 
     $headerPosts .= zen_draw_hidden_field('time', $hidden_time);
 
@@ -155,7 +160,7 @@
         $displaySpider = false;
       }
     } else {
-      $displaySpider = false;
+      $displaySpider = $default['SpiderYes'];
     }
     $headerPosts .= zen_draw_hidden_field('SpiderYes', $_POST['SpiderYes']);
 
@@ -172,6 +177,25 @@
           $_POST['delsession'] = $_POST['sessionData'];
         }
       }
+    }
+
+    if (isset($_POST['UserFilteredWordSearch'])) {
+      if ($_POST['UserFilteredWordSearch'] == 'ShowOnly') {
+        $user_filter_search = 'ShowOnly';
+      } elseif ($_POST['UserFilteredWordSearch'] == 'HideOnly') {
+        $user_filter_search = 'HideOnly';
+      } else {
+        $user_filter_search = 'ShowAll';
+      }
+    } else {
+      //$_POST['UserFilteredWordSearch'] = $default_user_filter_search;
+      $user_filter_search = $default['user_filter_search'];
+    }
+    $headerPosts .= zen_draw_hidden_field('UserFilteredWordSearch', $user_filter_search);
+
+    $user_filter_search_words = array();
+    if (defined('CONFIG_USER_TRACKING_USER_FILTER_WORDS')) {
+      $user_filter_search_words = array_map('trim', explode(',', CONFIG_USER_TRACKING_USER_FILTER_WORDS));
     }
 
 // End User Tracking - Spider Mod 2 of 7
@@ -256,6 +280,10 @@
     $num_sessions = 0;
     //End of v1.4.3 11 of 15
     while (!$whos_online->EOF) {
+      if ($user_filter_search == 'HideOnly' && array_key_exists('filterwordfound', $user_tracking[$whos_online->fields['session_id']])) {
+        $whos_online->MoveNext();
+        continue;
+      }
       $user_tracking[$whos_online->fields['session_id']]['session_id']=$whos_online->fields['session_id'];
       $user_tracking[$whos_online->fields['session_id']]['ip_address']=$whos_online->fields['ip_address'];
       $user_tracking[$whos_online->fields['session_id']]['customers_host_address']=$whos_online->fields['customers_host_address'];
@@ -265,7 +293,16 @@
       if ($whos_online->fields['full_name'] != 'Guest') {
         $user_tracking[$whos_online->fields['session_id']]['full_name'] = '<font color="0000ff"><b>' . $whos_online->fields['full_name'] . '</b></font>';
       }
-
+      
+      if (!array_key_exists('filterwordfound', $user_tracking[$whos_online->fields['session_id']])) { 
+        foreach ($user_filter_search_words as $filter_word) {
+          if (stripos($whos_online->fields['last_page_url'],$filter_word) !== false) {
+            $user_tracking[$whos_online->fields['session_id']]['filterwordfound'] = true;
+            break;
+          }
+        }
+      }
+      
       $user_tracking[$whos_online->fields['session_id']]['last_page_url'][$whos_online->fields['time_last_click']] = $whos_online->fields['last_page_url'];
 
       $user_tracking[$whos_online->fields['session_id']]['page_desc'][$whos_online->fields['time_last_click']] = $whos_online->fields['page_desc'];
@@ -441,6 +478,15 @@
                     'align' => 'left',
                     'text' => zen_draw_radio_field('SpiderYes', 'HideSpiders', $displaySpider == false, NULL, ( ($displaySpider == true) ? 'onClick="this.form.submit();"' : '' )) . TEXT_HIDE_SPIDERS . zen_draw_radio_field('SpiderYes', 'ShowSpiders', $displaySpider == true, NULL, ( ($displaySpider == false) ? 'onClick="this.form.submit();"' : '' )) . TEXT_SHOW_SPIDERS . (CONFIG_USER_TRACKING_TRACK_TYPE_RECORD == '3'? TEXT_OPTION3_SPIDER_HIDE : TEXT_SPIDER_HIDE_OTHERS)
                    );
+  $col['header'][] = array('params' => 'class="UserFilterSearch"',
+                           'align' => 'left',
+                           'text' => '<span style="white-space: nowrap;">' . zen_draw_radio_field('UserFilteredWordSearch', 'ShowAll', $user_filter_search == 'ShowAll', NULL, (($user_filter_search !== 'ShowAll') ? 'onClick="this.form.submit();"' : '') . 'id="ShowAllFiltered"') 
+                           . TEXT_USER_FILTER_ALL . '</span>'
+                           . ' ' . '<span style="white-space: nowrap;">' . zen_draw_radio_field('UserFilteredWordSearch', 'HideOnly', $user_filter_search == 'HideOnly', NULL, (($user_filter_search !== 'HideOnly') ? 'onClick="this.form.submit();"' : '') . 'id="HideOnlyFiltered"') 
+                           . TEXT_USER_FILTER_HIDE . '</span>'
+                           . ' ' . '<span style="white-space: nowrap;">' . zen_draw_radio_field('UserFilteredWordSearch', 'ShowOnly', $user_filter_search == 'ShowOnly', NULL, (($user_filter_search !== 'ShowOnly') ? 'onClick="this.form.submit();"' : '') . 'id="ShowOnlyFiltered"') 
+                           . TEXT_USER_FILTER_ONLY . '</span>'
+                           );
   $col['header'][] = array('params' => 'class="MinView"',
                     'align' => 'left',
                     'text' => TEXT_SHOW_MINIMUM_PAGE_VIEWS . zen_draw_pull_down_menu('MinPick', $min_vals, $MinValue, 'onchange="this.form.submit();"')
@@ -566,6 +612,16 @@ foreach ($user_tracking as $ut) {
       if ($MinValue > count($ut['last_page_url'])) {
         continue;
       }
+      // If supposed to hide all of the users that attempted a word, then when one is found, skip to the next.
+      $local_filter_found = array_key_exists('filterwordfound', $ut);
+      
+      if ($user_filter_search == 'HideOnly' && $local_filter_found) {
+        continue;
+      }
+      // If desired to show only the users that attempted a word, then kick out those that did not attempt one of those words.
+      if ($user_filter_search == 'ShowOnly' && !$local_filter_found) {
+        continue;
+      }
       $time_online = ($currentTime - $ut['time_entry']);
       if ($ut['full_name'] == "")
         $ut['full_name'] = "Guest";
@@ -574,9 +630,9 @@ foreach ($user_tracking as $ut) {
       {
         $stripped_name = strip_tags($ut['full_name']);
         $exploded_name = explode(" ", $stripped_name);
-        $customer_link = "<a href='" . zen_href_link(FILENAME_CUSTOMERS, "search=" . end($exploded_name), $request_type) . "'>" . $ut['full_name'] . "</a>";
+        $customer_link = "<a href='" . zen_href_link(FILENAME_CUSTOMERS, "search=" . end($exploded_name), $request_type) . "'>" . ( $local_filter_found ? TEXT_USER_FILTER_PREFIX : '') . $ut['full_name'] . "</a>";
       } else {
-        $customer_link = $ut['full_name'];
+        $customer_link = ($local_filter_found ? TEXT_USER_FILTER_PREFIX : '') . $ut['full_name'];
       }
 
       /* Generate the time table */
@@ -629,7 +685,7 @@ foreach ($user_tracking as $ut) {
 
       $col['center'] = array();
 
-      $col['center'][] = array( 'params' => 'class="dataTableHeadingContent" colspan="5"',
+      $col['center'][] = array( 'params' => 'class="dataTableHeadingContent' . ($local_filter_found ? ' lookupAttention' : '') . '" colspan="5"',
                                 'text' => TABLE_HEADING_SESSION_ID,
                               );
       $col['center'][] = array( 'params' => 'class="dataTableHeadingContent" colspan="1" width="150"',
@@ -640,7 +696,7 @@ foreach ($user_tracking as $ut) {
       $col['center'] = array();
 
 
-      $col['center'][] = array( 'params' => 'class="dataTableHeadingContent" colspan="5"',
+      $col['center'][] = array( 'params' => 'class="dataTableHeadingContent' . ($local_filter_found ? ' lookupAttention' : '') . '" colspan="5"',
                                 'text' => zen_draw_form('user_tracking_stats', FILENAME_USER_TRACKING, '#' . $ut['session_id'], 'post', '') .
                                 /*zen_draw_hidden_field('action', 'process') . */
                                 zen_draw_hidden_field('sessionData', $ut['session_id'], '') .

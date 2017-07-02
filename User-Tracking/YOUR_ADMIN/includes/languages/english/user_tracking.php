@@ -44,6 +44,10 @@ define('TEXT_SHOW_SPIDERS', 'Show Spiders');
 define('TEXT_OPTION3_SPIDER_HIDE',' *This option may not provide results because of an admin setting ');
 define('TEXT_SPIDER_HIDE_OTHERS', '');
 
+define('TEXT_USER_FILTER_ALL','<label for="ShowAllFiltered">List All</label>');
+define('TEXT_USER_FILTER_HIDE','<label for="HideOnlyFiltered">Hide Filtered</label>');
+define('TEXT_USER_FILTER_ONLY','<label for="ShowOnlyFiltered">Show Filtered</label>');
+define('TEXT_USER_FILTER_PREFIX', 'Filter: ');
 define('TEXT_HAS_BEEN_PURGED', 'All User Records Older Than 72 Hours Purged!');
 define('TEXT_SELECT_VIEW', 'SELECT VIEW');
 define('TEXT_BACK_TO', 'Back to');
