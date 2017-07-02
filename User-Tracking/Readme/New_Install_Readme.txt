@@ -1,5 +1,5 @@
 Contribution:  User Tracking
-Version:  V.1.5.4
+Version:  V.1.5.5
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
@@ -8,6 +8,7 @@ Thanks to BlessIsaacola for helping correct the newinstallsql and continued test
 Thanks also to bislewl for the layout/concept of the autoinstaller code.
 Thanks to torvista for continued behind the scenes modifications and suggestions.
 Thanks to DrByte for allowing me (mc12345678) the opportunity to update a program and to push for such updates to come to fruition.
+Thanks to Nitroedge for pushing for and explaining the funtionality desired and its business reason.
 License: under the GPL - See http://www.gnu.org/licenses/licenses.html#GPL License for info.
 Forum Support:  Only given via the forums, please. http://www.zen-cart.com/forum/showthread.php?t=35081
 
@@ -45,6 +46,8 @@ User Tracking (Purge Units) Days
 User Tracking (Type of User Interaction to Record) 1
 User Tracking (your favorite WHOIS URL) http://www.dnsstuff.com/tools/whois.ch?ip=   
 User Tracking (Show Product Category when tracking product clicks) true   
+User Tracking (User Tracking Filter Words) wp%20login%20php,%20action%20register:
+
 
 5- in admin/tools click on user tracking, you should see:
 
@@ -54,11 +57,23 @@ This tool allows for you to see the click patterns of the users through your sit
 
 7- troubleshooting:
 7-1- first check again if all files are correctly located in the zen directories.
-7-2- go to phpmyadmin, in table, configuration, delete all values related to user tracker, in table configuration-group, delete the table user tracking
-7-3- try install sql package with alternative method (if the first time was phpmyadmin, so this time do with zen admin add sql patch tools)
-7-4- check again if you have added one modification to both files, tpl.footer.php and footer.php
-7-5- still problem, take a look at forum (forum address at the top of this readme) and submit your question.
+7-2- Check for myDebugxxxx logs as described at: https://zen-cart.com/content.php?124-blank-page.  While the issue may not be a blank page
+     the information gathered will help all the same.
+7-3- go to phpmyadmin, in table, configuration, delete all values related to user tracker, in table configuration-group, delete the table user tracking
+7-4- try install sql package with alternative method (if the first time was phpmyadmin, so this time do with zen admin add sql patch tools)
+7-5- check again if you have added one modification to both files, tpl.footer.php and footer.php
+7-6- still problem, take a look at forum (forum address at the top of this readme) and submit your question.
 
+
+Updated 07/02/2017 Version 1.5.5 mc12345678:
+1. Removed HTML that was in the middle of PHP code.
+2. Moved Admin menu option "name" to the languages folder to support multiple languages.
+3. Improved sanitization for catalog and store side data capture.
+4. Made radio labels clickable to support radio button activation.
+5. Added feature to filter URL information that was captured when the site was visited.
+6. Added default settings to the top of the admin/user_tracking.php file.
+7. Removed unused code/variables in the two detection files.
+8. Updated version compare software to latest available in the ZC 1.5.5 series (not identified yet to a specific version)
 
 Updated 06/10/2017 Version 1.5.4 mc12345678:
 1. Revised the installer to restore the expected operation. Bug had been introduced that prevented recognition of full installation.
