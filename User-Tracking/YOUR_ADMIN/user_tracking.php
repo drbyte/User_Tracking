@@ -390,6 +390,12 @@
   table > tbody > tr > td > table > tbody > tr > .UTBox > table:nth-child(2) > tbody > tr > td > table:first-child {
     display: none;
   }
+  div.reportBox{
+    background:#d7d6cc;
+    border:1px solid #d7d6cc;
+    margin-top:1em;
+  }
+
 </style>
 </head>
 <body onload="init()">
@@ -411,7 +417,7 @@
 
   // Create a specific box for the header.
   $boxes['header'] = new box;
-  $boxes['header']->table_width = '70%';
+  $boxes['header']->table_width = '80%';
   $boxes['header']->table_cellpadding = '0';
   $boxes['header']->table_parameters = 'bgcolor="999999"';
 
@@ -467,16 +473,20 @@
   $col['header'][] = array('params'=>'class="main"',
                     'text' => ENTRY_START_DATE);
   $col['header'][] = array('params'=>'class="main"',
-                    'text' => zen_draw_pull_down_menu('sdate_month', $date_month, $start_date_month_val) .
+                    'text' => '<span style="white-space: nowrap;">' . zen_draw_pull_down_menu('sdate_month', $date_month, $start_date_month_val) .
                               zen_draw_pull_down_menu('sdate_day', $date_day, $start_date_day_val) .
                               zen_draw_pull_down_menu('sdate_year', $date_year, $start_date_year_val) .
                               (zen_not_null(ENTRY_START_DATE_TEXT)
                                 ? '<span class="inputRequirement">' . ENTRY_START_DATE_TEXT . '</span>'
-                                : ''),
+                                : '') . '</span>',
                    );
   $col['header'][] = array('params' => 'class="Spiders"',
                     'align' => 'left',
-                    'text' => zen_draw_radio_field('SpiderYes', 'HideSpiders', $displaySpider == false, NULL, ( ($displaySpider == true) ? 'onClick="this.form.submit();"' : '' )) . TEXT_HIDE_SPIDERS . zen_draw_radio_field('SpiderYes', 'ShowSpiders', $displaySpider == true, NULL, ( ($displaySpider == false) ? 'onClick="this.form.submit();"' : '' )) . TEXT_SHOW_SPIDERS . (CONFIG_USER_TRACKING_TRACK_TYPE_RECORD == '3'? TEXT_OPTION3_SPIDER_HIDE : TEXT_SPIDER_HIDE_OTHERS)
+                    'text' => '<span style="white-space: nowrap;">' . zen_draw_radio_field('SpiderYes', 'HideSpiders', $displaySpider == false, NULL, ( ($displaySpider == true) ? 'onClick="this.form.submit();"' : '' ) . 'id="HideSpiders"') 
+                    . TEXT_HIDE_SPIDERS . '</span>'
+                    . ' ' . '<span style="white-space: nowrap;">' . zen_draw_radio_field('SpiderYes', 'ShowSpiders', $displaySpider == true, NULL, ( ($displaySpider == false) ? 'onClick="this.form.submit();"' : '' ) . 'id="ShowSpiders"') 
+                    . TEXT_SHOW_SPIDERS . '</span>'
+                    . (CONFIG_USER_TRACKING_TRACK_TYPE_RECORD == '3'? TEXT_OPTION3_SPIDER_HIDE : TEXT_SPIDER_HIDE_OTHERS)
                    );
   $col['header'][] = array('params' => 'class="UserFilterSearch"',
                            'align' => 'left',

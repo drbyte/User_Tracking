@@ -39,8 +39,8 @@ define('TEXT_SHOPPING_CART_SUBTOTAL', 'Subtotal');
 define('TEXT_NUMBER_OF_CUSTOMERS', 'There have been %s page views in this 24 hour period.');
 define('TEXT_NUMBER_OF_SPIDERS', ' Total number of spiders: %u.');
 define('TEXT_NUMBER_OF_USERS', ' Total number of users: %u.');
-define('TEXT_HIDE_SPIDERS', 'Hide Spiders');
-define('TEXT_SHOW_SPIDERS', 'Show Spiders');
+define('TEXT_HIDE_SPIDERS', '<label for="HideSpiders">Hide Spiders</label>');
+define('TEXT_SHOW_SPIDERS', '<label for="ShowSpiders">Show Spiders</label>');
 define('TEXT_OPTION3_SPIDER_HIDE',' *This option may not provide results because of an admin setting ');
 define('TEXT_SPIDER_HIDE_OTHERS', '');
 
