@@ -52,7 +52,7 @@ if (defined('CONFIG_' . $module_constant . '_VERSION')) {
     }
 }
 if ($configuration_group_id == '') {
-    $config = $db->Execute("SELECT configuration_group_id FROM " . TABLE_CONFIGURATION . " WHERE configuration_key= '" . $module_constant . "'");
+    $config = $db->Execute("SELECT configuration_group_id FROM " . TABLE_CONFIGURATION . " WHERE configuration_key= 'CONFIG_" . $module_constant . "_VERSION'");
     $configuration_group_id = $config->fields['configuration_group_id'];
 }
 
