@@ -1,5 +1,6 @@
 /* Tables need to be ensured to include the prefix if it exists. */
-
+/* If want to reinstall and maintain the existing table, then omit the first line below.
+*/
 DROP TABLE IF EXISTS user_tracking;
 
 SELECT @UserTrackgID := configuration_group_id 

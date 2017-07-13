@@ -634,8 +634,10 @@ foreach ($user_tracking as $ut) {
       }
       $time_online = ($currentTime - $ut['time_entry']);
       if ($ut['full_name'] == "")
+      {
         $ut['full_name'] = "Guest";
-
+      }
+      
       if($ut['full_name'] != "Guest")
       {
         $stripped_name = strip_tags($ut['full_name']);

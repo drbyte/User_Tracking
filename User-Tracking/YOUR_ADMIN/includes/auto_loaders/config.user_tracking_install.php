@@ -16,5 +16,6 @@ if (IS_ADMIN_FLAG === true) { // Verify that file is in the admin.
     'loadFile' => 'init_user_tracking.php'
   );
 } else {
+  trigger_error('Install file attempted in location not related to the admin.', E_USER_WARNING);
   @unlink(__FILE__); // Remove this file if it was placed in the store side.
 }

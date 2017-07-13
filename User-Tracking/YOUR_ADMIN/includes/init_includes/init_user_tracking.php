@@ -58,7 +58,7 @@ if ($configuration_group_id == '') {
 
 // Obtain a list of files in the installer directory.
 if (is_dir($module_installer_directory)) {
-  $installers = scandir($module_installer_directory, 1); // Sorted ascending
+  $installers = scandir($module_installer_directory, (defined('SCANDIR_SORT_DESCENDING') ? SCANDIR_SORT_DESCENDING : 1)); // Sorted Descending
 
   // Determine the extension of this file to be used for comparison on the others.
   $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
@@ -78,6 +78,7 @@ if (is_dir($module_installer_directory)) {
       $newest_version = $installers[0];
       $newest_version = substr($newest_version, 0, -1 * $file_extension_len);
 
+      sort($installers);
       if (version_compare($newest_version, $current_version) > 0) {
           foreach ($installers as $installer) {
               if (substr($installer, strrpos($installer, '.')) == $file_extension && (preg_match('~^[^\._].*\.php$~i', $installer) > 0 || $installer != 'empty.txt')) {

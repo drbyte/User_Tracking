@@ -1,5 +1,5 @@
 Contribution:  User Tracking
-Version:  V.1.5.5
+Version:  V.1.5.6
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
@@ -18,20 +18,27 @@ NEW Installation Procedure:
 
 1. The files in the contribution are arranged for Zen-Cart Version 1.5.x, just put them in the appropriate folder(s).
 
-1-B: The file structure is ready to drop in. Rename the admin folder to match your custom admin folder directory and upload the directory to the root of your store where that admin directory exists.
+1-B: The file structure is ready to drop in. Rename the admin folder to match your custom admin folder directory 
+     and upload the directory to the root of your store where that admin directory exists.
 
 2. Login into the admin area.
 
 3. File Modifications: 
-	3-1- to allow tracking pages loaded by visitors to the site for ZC pre 1.5.5, add the following line to the end of /includes/templates/YOUR TEMPLATE/common/tpl_main_page.php.  If the file does not exist in your template, then copy the common/tpl_main_page.php file from the default_template into the folder named for your chosen template(s).  (This is the recommended location to store changes to Zen Cart, reportedly to be easier to upgrade when changes come out or if it is desired to return to basic settings.)
+	3-1- to allow tracking pages loaded by visitors to the site for ZC pre 1.5.5, add or verify present the 
+	     following line to the end of /includes/templates/YOUR TEMPLATE/common/tpl_main_page.php.  If the file 
+	     does not exist in your template, then copy the common/tpl_main_page.php file from the template_default 
+	     into the folder named for your chosen template(s).  (This is the recommended location to store changes 
+	     to Zen Cart, using the template override folders makes future upgrades a little easier when changes 
+	     come out or if it is desired to return to basic settings.)
 
 <?php $zco_notifier->notify('NOTIFY_FOOTER_END'); ?>
 
-	3-2- To allow tracking pages loaded in the admin area, add the following to the end of /YOUR_ADMIN/includes/footer.php.  
+	3-2- To allow tracking pages loaded in the admin area, add the following to the end of /YOUR_ADMIN/includes/footer.php.
 
 <?php $zco_notifier->notify('NOTIFY_ADMIN_FOOTER_END'); ?>
 
-4. Go to admin of store (ZenCart), in admin/configuration you should see user tracking config, by clicking on this you should see:
+4. Go to admin of your store (ZenCart), in admin/configuration you should see user tracking config, by clicking on this 
+   you should see:
 
 User Tracking Configuration  
  
@@ -64,6 +71,12 @@ This tool allows for you to see the click patterns of the users through your sit
 7-5- check again if you have added one modification to both files, tpl.footer.php and footer.php
 7-6- still problem, take a look at forum (forum address at the top of this readme) and submit your question.
 
+
+Updated 07/13/2017 Version 1.5.6 mc12345678:
+1. Version 1.5.6:
+2. Correct the installer again.
+3. Add more explanation in the installation instructions.
+4. Added error logging if admin install file is placed in the catalog side of the store.
 
 Updated 07/02/2017 Version 1.5.5 mc12345678:
 1. Removed HTML that was in the middle of PHP code.
