@@ -69,7 +69,9 @@ This tool allows for you to see the click patterns of the users through your sit
 7-3- go to phpmyadmin, in table, configuration, delete all values related to user tracker, in table configuration-group, delete the table user tracking
 7-4- try install sql package with alternative method (if the first time was phpmyadmin, so this time do with zen admin add sql patch tools)
 7-5- check again if you have added one modification to both files, tpl.footer.php and footer.php
-7-6- still problem, take a look at forum (forum address at the top of this readme) and submit your question.
+7-6- No content displayed between the ZC admin menu and the typical footer image, verify that the changes of
+     https://github.com/zencart/zencart/commit/f891d240fe199af7510a9a4ae72024f66dd1f33c have been applied.
+7-7- still problem, take a look at forum (forum address at the top of this readme) and submit your question.
 
 
 Updated 07/13/2017 Version 1.5.6 mc12345678:
