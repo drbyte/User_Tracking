@@ -279,8 +279,10 @@
     $spiderCount = 0;
     $num_sessions = 0;
     //End of v1.4.3 11 of 15
+    $user_tracking = array();
+
     while (!$whos_online->EOF) {
-      if ($user_filter_search == 'HideOnly' && array_key_exists('filterwordfound', $user_tracking[$whos_online->fields['session_id']])) {
+      if ($user_filter_search == 'HideOnly' && !empty($user_tracking) && array_key_exists('filterwordfound', $user_tracking[$whos_online->fields['session_id']])) {
         $whos_online->MoveNext();
         continue;
       }
@@ -326,7 +328,7 @@
 
     //Begin of v1.4.3 12 of 15
     $listed = 0;
-    if ($results && is_array($user_tracking) == true) {
+    if ($results && !empty($user_tracking)) {
       foreach ($user_tracking as $ut)
       {
         $is_a_bot=zen_check_bot($ut['session_id']);
@@ -602,7 +604,7 @@
   $spiderCount = 0;
     //End of v1.4.3 14 of 15
 
-  if ($results && is_array($user_tracking) == true) {
+  if ($results && !empty($user_tracking)) {
   /* Begin v1.4.3b  (Moved statement to within test) */
      // reset($user_tracking);
   /* End v1.4.3b */
