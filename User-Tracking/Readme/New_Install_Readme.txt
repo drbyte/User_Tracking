@@ -1,5 +1,5 @@
 Contribution:  User Tracking
-Version:  V.1.5.6
+Version:  V.1.5.7
 
 Designed for: Zen Cart v1.5 Release
 Converted into Zen by: Dave Kennelly dave@open-operations.com
@@ -73,6 +73,13 @@ This tool allows for you to see the click patterns of the users through your sit
      https://github.com/zencart/zencart/commit/f891d240fe199af7510a9a4ae72024f66dd1f33c have been applied.
 7-7- still problem, take a look at forum (forum address at the top of this readme) and submit your question.
 
+Updated 07/16/2017 Version 1.5.7 mc12345678:
+1. Correct the condition of an admin mydebug log being generated when the selection is made to display
+     filtered entries to hide entries that accessed an item on the list of filtered URIs.
+2. Added guidance in the instructions to support continued operation of this plugin with ZC 1.5.1 because of
+     an issue that existed in the table handling code of that version corrected in ZC 1.5.2 and above. See
+     https://github.com/zencart/zencart/commit/f891d240fe199af7510a9a4ae72024f66dd1f33c for solution.
+3. Update the uninstall SQL to prevent removing configuration keys that might have a configuration_group_id of zero.
 
 Updated 07/13/2017 Version 1.5.6 mc12345678:
 1. Version 1.5.6:
